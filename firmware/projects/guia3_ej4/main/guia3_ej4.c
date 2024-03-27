@@ -39,7 +39,6 @@ void convertToBcdArray(uint32_t data, uint8_t digits, uint8_t *bcd_number)
 		bcd_number[i] = data % 10; 
 		data /= 10; 
 	}
-
 }
 
 /*==================[external functions definition]==========================*/

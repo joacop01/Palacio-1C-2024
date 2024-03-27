@@ -54,6 +54,8 @@ void app_main(void)
     		case SWITCH_2:
     			LedToggle(LED_2);
     		break;
+			case SWITCH_1 | SWITCH_2:
+				LedToggle(LED_3);
 		}
     }
 	vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
