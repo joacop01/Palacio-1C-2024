@@ -36,7 +36,6 @@
 #include "hc_sr04.h"
 #include "lcditse0803.h"
 #include "switch.h"
-#include "timer_mcu.h"
 
 /*==================[macros and definitions]=================================*/
 /**
@@ -108,19 +107,6 @@ static void MostrarDist(void *pvParameter);
 static void LecturaSwitches(void *pvParameter);
 
 /*==================[internal functions declaration]=========================*/
-/**
- * @fn void FuncTimerA
- * @brief Notifica a las tareas de calcular distancia, manejo de leds y mostrar distancias para que se 
- * encuentren listas
- * @param[in] param
- * @return 
- */
-void FuncTimerA(void* param){
-    vTaskNotifyGiveFromISR(calc_dist_task_handle, pdFALSE);
-	vTaskNotifyGiveFromISR(manejo_leds_task_handle, pdFALSE);
-	vTaskNotifyGiveFromISR(mostrar_dist_task_handle, pdFALSE);
-}
-
 static void CalcDist(void *pvParameter){
     while(true){
 		if(on == 1)
