@@ -1,35 +1,25 @@
-
-/*
-   PulseSensor measurement manager.
-   See https://www.pulsesensor.com to get started.
-
-   Copyright World Famous Electronics LLC - see LICENSE
-   Contributors:
-     Joel Murphy, https://pulsesensor.com
-     Yury Gitman, https://pulsesensor.com
-     Bradford Needham, @bneedhamia, https://bluepapertech.com
-
-   Licensed under the MIT License, a copy of which
-   should have been included with this software.
-
-   This software is not intended for medical use.
-*/
-/*
-   Internal constants controlling the rate of fading for the FadePin.
-
-   FADE_SCALE = FadeLevel / FADE_SCALE is the corresponding PWM value.
-   FADE_LEVEL_PER_SAMPLE = amount to decrease FadeLevel per sample.
-   MAX_FADE_LEVEL = maximum FadeLevel value.
-
-   The time (milliseconds) to fade to black =
-     (MAX_FADE_LEVEL / FADE_LEVEL_PER_SAMPLE) * sample time (2ms)
-*/
-//#define FADE_SCALE 10
-//#define FADE_LEVEL_PER_SAMPLE 12
-//#define MAX_FADE_LEVEL (255 * FADE_SCALE)
+/**
+ * @file pulse_sensor.c
+ * @author Joaquin Palacio
+ * @brief 
+ * @version 0.1
+ * @date 2024-06-09
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+/*==================[inclusions]=============================================*/
 #include "pulse_sensor.h"
-#include "led.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "analog_io_mcu.h"
 
+/*==================[macros and definitions]=================================*/
 
 
 void initPulseSensor(HeartRateMonitor *hr_monitor)
@@ -54,15 +44,12 @@ void resetVariables(HeartRateMonitor *hr_monitor){
   hr_monitor->amp = 100;                  // beat amplitude 1/10 of input range.
   hr_monitor->firstBeat = true;           // looking for the first beat
   hr_monitor->secondBeat = false;         // not yet looking for the second beat in a row
-  //hr_monitor->FadeLevel = 0; // LED is dark.
 }
 
 
 void setThreshold(HeartRateMonitor *hr_monitor, uint16_t threshold) {
-  //DISABLE_PULSE_SENSOR_INTERRUPTS;
   hr_monitor->threshSetting = threshold; // this is the backup we get from the main .ino
   hr_monitor->thresh = threshold; // this is the one that updates in software
-  //ENABLE_PULSE_SENSOR_INTERRUPTS;
 }
 
 uint16_t getLatestSample(HeartRateMonitor *hr_monitor) {
@@ -86,12 +73,8 @@ uint16_t getLastBeatTime(HeartRateMonitor *hr_monitor) {
 }
 
 bool sawStartOfBeat(HeartRateMonitor *hr_monitor) {
-  // Disable interrupts to avoid a race with the ISR.
-  //DISABLE_PULSE_SENSOR_INTERRUPTS;
   bool started = hr_monitor->QS;
   hr_monitor->QS = false;
-  //ENABLE_PULSE_SENSOR_INTERRUPTS;
-
   return started;
 }
 
@@ -100,16 +83,12 @@ bool isInsideBeat(HeartRateMonitor *hr_monitor) {
 }
 
 void readNextSample(HeartRateMonitor *hr_monitor) {
-  // We assume assigning to an int is atomic.
   AnalogInputReadSingle(hr_monitor->ch, &hr_monitor->Signal);
 }
 
 void processLatestSample(HeartRateMonitor *hr_monitor) {
   hr_monitor->sampleCounter += hr_monitor->sampleIntervalMs;         // keep track of the time in mS with this variable
   hr_monitor->N = hr_monitor->sampleCounter - hr_monitor->lastBeatTime;      // monitor the time since the last beat to avoid noise
-  // Fade the Fading LED
-  /*hr_monitor->FadeLevel = hr_monitor->FadeLevel - FADE_LEVEL_PER_SAMPLE;
-  hr_monitor->FadeLevel = constrain(hr_monitor->FadeLevel, 0, MAX_FADE_LEVEL);*/
 
   //  find the peak and trough of the pulse wave
   if (hr_monitor->Signal < hr_monitor->thresh && hr_monitor->N > (hr_monitor->IBI / 5) * 3) { // avoid dichrotic noise by waiting 3/5 of last IBI
@@ -127,7 +106,6 @@ void processLatestSample(HeartRateMonitor *hr_monitor) {
   if (hr_monitor->N > 250) {                             // avoid high frequency noise
     if ( (hr_monitor->Signal > hr_monitor->thresh) && (hr_monitor->Pulse == false) && (hr_monitor->N > (hr_monitor->IBI / 5) * 3) ) {
       hr_monitor->Pulse = true;             // set the Pulse flag when we think there is a pulse
-      LedOn(LED_1);
       hr_monitor->IBI = hr_monitor->sampleCounter - hr_monitor->lastBeatTime;    // measure time between beats in mS
       hr_monitor->lastBeatTime = hr_monitor->sampleCounter;          // keep track of time for next pulse
 
@@ -159,13 +137,11 @@ void processLatestSample(HeartRateMonitor *hr_monitor) {
       runningTotal /= 10;                     // average the last 10 IBI values
       hr_monitor->BPM = 60000 / runningTotal;             // how many beats can fit into a minute? that's BPM!
       hr_monitor->QS = true;                              // set Quantified Self flag (we detected a beat)
-      //hr_monitor->FadeLevel = MAX_FADE_LEVEL;             // If we're fading, re-light that LED.
     }
   }
 
   if (hr_monitor->Signal < hr_monitor->thresh && hr_monitor->Pulse == true) {  // when the values are going down, the beat is over
-    hr_monitor->Pulse = false;       // reset the Pulse flag so we can do it again
-    LedOff(LED_1);                     
+    hr_monitor->Pulse = false;       // reset the Pulse flag so we can do it again                    
     hr_monitor->amp = hr_monitor->P - hr_monitor->T;                           // get amplitude of the pulse wave
     hr_monitor->thresh = hr_monitor->amp / 2 + hr_monitor->T;                  // set thresh at 50% of the amplitude
     hr_monitor->P = hr_monitor->thresh;                            // reset these for next time

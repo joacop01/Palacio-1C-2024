@@ -1,12 +1,26 @@
-/**
- * @file ProyectoFinal.c
- * @author Joaquin Palacio (joaquin.palacio@ingenieria.uner.edu.ar)
- * @brief 
- * @version 0.1
- * @date 2024-05-16
+/*! @mainpage Guia2ej4
+ *
+ * @section genDesc General Description
+	
+ *
+ * @section hardConn Hardware Connection
+ *
+ * |    Peripheral  |   ESP32   	|
+ * |:--------------:|:--------------|
+ * | 	Signal   	|	   CH1		|
+ * | 	  Vcc     	|	   3.3V		|
+ * | 	  GND      	|	   GND		|	
  * 
- * @copyright Copyright (c) 2024
- * 
+ *
+ *
+ * @section changelog Changelog
+ *
+ * |   Date	    | Description                                    |
+ * |:----------:|:-----------------------------------------------|
+ * | 30/04/2024 | Document creation		                         |
+ *
+ * @author Joaquin Palacio
+ *
  */
 
 /*==================[inclusions]=============================================*/
@@ -22,32 +36,41 @@
 #include "timer_mcu.h"
 #include "buzzer.h"
 #include "buzzer_melodies.h"
-#include "led.h"
 #include "uart_mcu.h"
 #include "switch.h"
 
 /*==================[macros and definitions]=================================*/
+/** @def FS
+ * @brief Frecuencia en Hz a la que se muestrea la sañal analógica
+*/
+#define FS 200 
+
+/** @def CONFIG_TIMER_A
+ * @brief tiempo en micro segundos del timer_A
+*/
+#define CONFIG_TIMER_A 1000*1000/FS
+
+/** @def CONFIG_TIMER_B
+ * @brief tiempo en micro segundos del timer_B
+*/
+#define CONFIG_TIMER_B 1000*1000*60
+
+/** @def TRESHOLD
+ * @brief umbral para la deteccion de latidos (Vcc/2)
+*/
+#define TRESHOLD 1650
+
+/** @def MUESTRAS_1_MIN 
+ * @brief cantidad de muestras que se toman en 1 minuto de la señal analógica
+*/
+#define MUESTRAS_1_MIN CONFIG_TIMER_B/ CONFIG_TIMER_A
 
 /*==================[internal data declaration]==============================*/
+
 
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
-
-/*==================[external data definition]===============================*/
-
-/*==================[internal functions definition]==========================*/
-
-/*==================[external functions definition]==========================*/
-
-/*==================[end of file]============================================*/
-
-#define FS 100  // Frecuencia de muestreo en Hz
-#define CONFIG_TIMER_A 10000 //us
-#define CONFIG_TIMER_B 1000*1000*60 //us
-#define TRESHOLD 1400
-#define MUESTRAS_1_MIN CONFIG_TIMER_B/ CONFIG_TIMER_A
-
 TaskHandle_t process_signal_task_handle = NULL;
 TaskHandle_t read_signal_task_handle = NULL;
 TaskHandle_t display_data_task_handle = NULL;
@@ -55,6 +78,9 @@ TaskHandle_t alarm_manage_task_handle = NULL;
 TaskHandle_t detect_drowsines_task_handle = NULL;
 
 
+/** @struct hr_monitor 
+ * @brief monitor de frecuencia cardíaca
+*/
 HeartRateMonitor hr_monitor = 
 {
     .ch = CH1,
@@ -62,12 +88,44 @@ HeartRateMonitor hr_monitor =
     .threshSetting = TRESHOLD
 };
 
-bool on;
+/** @var on 
+ * @brief determina si la aplicación se encuentra en funcionamiento
+ * */
+bool on = true;
+
+/** @var somnolencia
+ * @brief determina la presencia o no de somnolencia 
+ * */
 bool somnolencia = false;
-uint16_t periodo_refractario = 0;
+
+/** @var somn
+ * @brief caracter recibido por la UART que informa sobre el estado del sujeto ("0" = despierto, "1" = somnolencia) 
+ * */
 uint8_t somn;
+
+/** @var count
+ * @brief contador de la cantidad de muestras tomadas(se reinicia cada 1 minuto) 
+ * */
 uint16_t count = 0;
 
+void FuncTimerA(void* param);
+
+void FuncTimerB(void* param);
+
+void serial_interrupt(void* param);
+
+static void ProcessSignal(void *pvParameters);
+
+static void DisplayData(void *pvParameters);
+
+static void AlarmManage(void *pvParameters);
+
+static void DetectDrowsines(void *pvParameters);
+
+static void LecturaSwitch1();
+/*==================[external data definition]===============================*/
+
+/*==================[internal functions definition]==========================*/
 void FuncTimerA(void* param)
 {
 
@@ -102,26 +160,19 @@ static void ProcessSignal(void *pvParameters)
 
             if (count == 0)
             {
-                UartSendString(UART_PC, "S\r\n");
-            }
-
-            if(sawStartOfBeat(&hr_monitor))
-            {
-
-                if(periodo_refractario == 0)
-                {
-                    uint8_t *msg =  UartItoa((uint32_t)getInterBeatIntervalMs(&hr_monitor), 10);
-                    UartSendString(UART_PC, (char*)msg);
-                    UartSendString(UART_PC, "\r\n");
-                    periodo_refractario = 20;
-                }
-                else
-                {
-                    periodo_refractario--;
-                }
+                UartSendString(UART_PC, "S\r\n");   
             }
             
-            count ++;
+            uint8_t *msg =  UartItoa((uint32_t)getLatestSample(&hr_monitor), 10);
+            UartSendString(UART_PC, (char*)msg);
+            UartSendString(UART_PC, "\r\n");
+            //if(sawStartOfBeat(&hr_monitor))
+            //{
+            //    uint8_t *msg =  UartItoa((uint32_t)hr_monitor.IBI, 10);
+            //    UartSendString(UART_PC, (char*)msg);
+            //    UartSendString(UART_PC, "\r\n");
+            //}
+            count++;
 
             if (count == MUESTRAS_1_MIN)
             {
@@ -169,7 +220,9 @@ static void DetectDrowsines(void *pvParameters)
         {
             if(somn == '0')
             {
+
             somnolencia = 0;
+
             }
         else
             {
@@ -183,6 +236,8 @@ static void LecturaSwitch1()
 {
     on = !on;
 }
+/*==================[external functions definition]==========================*/
+
 
 void app_main(void) {
     timer_config_t timer_A = {
@@ -219,7 +274,6 @@ void app_main(void) {
     TimerInit(&timer_A);
     TimerInit(&timer_B);
     BuzzerInit(GPIO_4);
-    LedsInit();
     SwitchesInit();
 
     TimerStart(timer_A.timer);
@@ -238,3 +292,10 @@ void app_main(void) {
     xTaskCreate(&DetectDrowsines, "Detect Drowsiness", 512, NULL, 4, &detect_drowsines_task_handle);
 
 }
+/*==================[end of file]============================================*/
+
+
+
+
+
+

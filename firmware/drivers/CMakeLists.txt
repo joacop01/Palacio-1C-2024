@@ -22,6 +22,10 @@ set(srcs
     "devices/src/servo_sg90.c"
     "devices/src/hx711.c"
     "devices/src/mpu6050.c"
+    "devices/src/pulse_sensor.c"
+    "devices/src/buzzer.c"
+    "devices/src/l293.c"
+    "devices/src/icons.c"
     )
 
 # Always included headers
