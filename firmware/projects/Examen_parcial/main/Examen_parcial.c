@@ -27,7 +27,7 @@
  * | GND_BOMBA_AGUA | 	   GND		|
  * | GND_BOMBA_SB   | 	   GND		|
  * | GND_BOMBA_SA   | 	   GND		|
- * | GND_SENSOR_HUM  | 	   GND		|
+ * | GND_SENSOR_HUM | 	   GND		|
  * 
  * @section changelog Changelog
  *
@@ -89,7 +89,7 @@
 /** @def BASE
  * @brief base numérica del número que se va a convertir a ASCII
 */
-#define BASE 10 
+#define BASE (10) 
 
 /*==================[internal data definition]===============================*/
 TaskHandle_t suministro_agua_task_handle = NULL;
@@ -302,7 +302,5 @@ void app_main(void){
 	xTaskCreate(&SuministroAgua,"Suministro de agua", 2048, NULL, 4, &suministro_agua_task_handle);
 	xTaskCreate(&ControlpH, "Control pH", 2048, NULL, 4, &control_ph_task_handle);
 	xTaskCreate(&SendData, "Send Data", 2048, NULL, 4, &send_data_task_handle);
-
-
 }
 /*==================[end of file]============================================*/
