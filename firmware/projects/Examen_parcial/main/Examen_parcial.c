@@ -1,18 +1,34 @@
 /*! @mainpage Examen_parcial
  *
- * @section genDesc General Description
- *
- * This section describes how the program works.
- *
- * <a href="https://drive.google.com/...">Operation Example</a>
+ * @section genDesc Examen parcial de electrónica programable:
+	Dispositivo basado en la ESP-EDU que permita controlar el riego y el pH de una plantera.
+	El sistema está compuesto por una serie de recipientes con agua, una solución de pH ácida y 
+	otra básica, un sensor de húmedad y uno de pH, y tres bombas peristálticas para los líquidos.
+	Se cuenta con un sensor de humedad que detecta si la humedad es insuficiente, en ese caso se 
+	enciende la bomba de agua cuando el sensor cambia su estado de "0" a "1".
+	Se mantiene un pH en el rango de 6 a 6.7 activando bombas de solución báscia o ácida según corresponda,
+	de acuerdo al valor de pH leído por un sensor analógico, el cual se convierte a digital mediante el ADC
+	y luego se realiza su conversion de mV a su equivalente en pH. Si el pH se encuentra por debajo de 6
+	se enciende la bomba de solución básica. Por otro lado, si se encuentra por encima de 6.7 se activa la 
+	bomba de solución ácida. En caso de que se encuentre en el rango deseado, ninguna de las bombas se activa
+	La medición de agua y pH se realizan cada 3 segundos. Se informa por la UART del estado del sistema cada
+	5 segundos, indicandose: el pH, si la humedad es correcta o no y, en el caso de que alguna de las bombas
+	se encuentre encendida se informa cual de ellas lo está.
+	Se controla el inicio y detención del sistema mediante las teclas 1 (on) y 2(off).
  *
  * @section hardConn Hardware Connection
  *
  * |    Peripheral  |   ESP32   	|
  * |:--------------:|:--------------|
- * | 	PIN_X	 	| 	GPIO_X		|
- *
- *
+ * |PIN+ BOMBA_AGUA | 	 GPIO_0		|
+ * |PIN+ BOMBA_SB   | 	 GPIO_10	|
+ * |PIN+ BOMBA_SA   | 	 GPIO_11	|
+ * |PIN+ SENSOR_HUM | 	 GPIO_20	|
+ * | GND_BOMBA_AGUA | 	   GND		|
+ * | GND_BOMBA_SB   | 	   GND		|
+ * | GND_BOMBA_SA   | 	   GND		|
+ * | GND_SENSOR_HUM  | 	   GND		|
+ * 
  * @section changelog Changelog
  *
  * |   Date	    | Description                                    |
@@ -28,34 +44,63 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "analog_io_mcu.h"
-#include "pulse_sensor.h"
 #include "timer_mcu.h"
-#include "buzzer.h"
-#include "buzzer_melodies.h"
 #include "uart_mcu.h"
 #include "switch.h"
 #include "gpio_mcu.h"
+
 /*==================[macros and definitions]=================================*/
+
+/** @def GPIO_SENSOR_HUM
+ * @brief gpio al que se conecta el sensor de humedad
+*/
 #define GPIO_SENSOR_HUM GPIO_20
+
+/** @def GPIO_BOMBA_AGUA
+ * @brief gpio al que se conecta la bomba de agua
+*/
 #define GPIO_BOMBA_AGUA GPIO_0 
+
+/** @def GPIO_BOMBA_SOL_BASICA
+ * @brief gpio al que se conecta la bomba de solución básica
+*/
 #define GPIO_BOMBA_SOL_BASICA GPIO_10
+
+/** @def GPIO_BOMBA_SOL_ACIDA
+ * @brief gpio al que se conecta la bomba de solución ácida
+*/
 #define GPIO_BOMBA_SOL_ACIDA GPIO_11
-#define CONFIG_TIMER_A (3*1000*1000) //periíodo de 3 segundos
-#define CONFIG_TIMER_B (5*1000*1000) //periíodo de 5 segundos
-#define BASE 10 //base numérica
+
+/** @def CONFIG_TIMER_A
+ * @brief tiempo en micro segundos del TIMER_A
+*/
+#define CONFIG_TIMER_A (3*1000*1000) //período de 3 segundos
+
+/** @def CONFIG_TIMER_B
+ * @brief tiempo en micro segundos del TIMER_B
+*/
+#define CONFIG_TIMER_B (5*1000*1000) //período de 5 segundos
+
+/** @def BASE
+ * @brief base numérica del número que se va a convertir a ASCII
+*/
+#define BASE 10 
 
 /*==================[internal data definition]===============================*/
 TaskHandle_t suministro_agua_task_handle = NULL;
 TaskHandle_t control_ph_task_handle = NULL;
 TaskHandle_t send_data_task_handle = NULL;
 
-uint16_t pH; // variable donde se almacena el pH leído
+/**
+ * @var pH
+ * @brief variable que almacena el valor de pH
+*/
+uint16_t pH;
 
 /**
  * @var on
@@ -63,33 +108,46 @@ uint16_t pH; // variable donde se almacena el pH leído
 */
 bool on = 0;
 
-static void SuministroAgua(void *pvParameters); // funcion que controla el suministro de agua
-static void ControlpH(void *pvParameters); // funcion que controla el pH
+/** 
+* @brief enciende la bomba de agua en caso de que el sensor de humedad lo indique
+* @param[in] pvParameter puntero tipo void 
+*/
+static void SuministroAgua(void *pvParameters);
+
+/** 
+* @brief maneja el control de las bombas de soluciones ácidas y básicas de acuerdo al valor de pH
+* @param[in] pvParameter puntero tipo void 
+*/
+static void ControlpH(void *pvParameters); 
 
 /**
  * @fn void FuncTimerA(void *param)
- * @brief Notifica a las tareas de calcular distancia, manejo de leds y mostrar distancias para que se 
- * encuentren listas
+ * @brief Notifica a las tareas de suministro de agua y control de pH para que se encuentren listas
  * @param[in] param puntero tipo void
  */
 void FuncTimerA(void *param);
 
-
-void FuncTimerB(void *param); // funcion de callback del timer B
-
+/**
+ * @fn void FuncTimerA(void *param)
+ * @brief Notifica a la tarea de send data para que se encuentren listas
+ * @param[in] param puntero tipo void
+ */
+void FuncTimerB(void *param);
 
 /**
  * @fn static void LecturaSwitch1 ()
- * @brief Se ejecuta al presionarse la tecla 1, cambia el estado del booleano on
+ * @brief Se ejecuta al presionarse la tecla 1, pone on en alto
  */
 static void LecturaSwitch1();
 
 /**
  * @fn static void LecturaSwitch2 ()
- * @brief Se ejecuta al presionarse la tecla 2, cambia el estado del booleano hold
+ * @brief Se ejecuta al presionarse la tecla 2, pone on en bajo
  */
 static void LecturaSwitch2();
+
 /*==================[internal functions declaration]=========================*/
+
 void FuncTimerA(void* param){
 
 	vTaskNotifyGiveFromISR(suministro_agua_task_handle, pdFALSE);
@@ -101,21 +159,19 @@ void FuncTimerB(void* param)
 	vTaskNotifyGiveFromISR(send_data_task_handle, pdFALSE);
 }
 
-
-
 static void SuministroAgua(void *pvParameters)
 {
 	while(true)
 	{
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-		if(GPIORead(GPIO_SENSOR_HUM)) // si el GPIO del sensor de humedad esta en alto
+		if(GPIORead(GPIO_SENSOR_HUM)) // si el gpio del sensor de humedad esta en alto
 		{
 			GPIOOn(GPIO_BOMBA_AGUA); //prendemos la bomba
 		}
-		else
+		else //si el gpio del sensor de humedad está en bajo
 		{
-			GPIOOn(GPIO_BOMBA_AGUA); //apagamos la bomba
+			GPIOOff(GPIO_BOMBA_AGUA); //apagamos la bomba
 		}
 	}
 }
@@ -126,9 +182,8 @@ static void ControlpH(void *pvParameters)
 
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
-
-		AnalogInputReadSingle(CH1, &pH); //realizamos la conversión de la tensión leída 
-		pH = (pH * 14) / 3; //conversión del valor de tensión a pH
+		AnalogInputReadSingle(CH1, &pH); //conversión analógica digital 
+		pH = (pH * 14) / 3000; //conversión del valor de tensión (mV) a pH
 		
 		if(pH < 6) //si el pH es menor a 6
 		{
@@ -161,13 +216,13 @@ static void SendData(void *pvParameters)
 		UartSendString(UART_PC, (char*)msg);
 		UartSendString(UART_PC, ", ");
 
-		if (GPIORead(GPIO_SENSOR_HUM)) //si el sensor está en 1 quiere decir que la humedad no es la correcta
+		if (GPIORead(GPIO_SENSOR_HUM)) //si el sensor de humedad está en 1 quiere decir que la humedad no es la correcta
 		{
 			UartSendString(UART_PC, "humedad incorrecta");
 		}
-		else
+		else // si el sensor está en 0, la humedad es correcta.
 		{
-			UartSendString(UART_PC, "humedad correcta"); // si el sensor está en 0, la humedad es correcta.
+			UartSendString(UART_PC, "humedad correcta"); 
 		}
 
 		UartSendString(UART_PC, "\r\n");
@@ -184,19 +239,19 @@ static void SendData(void *pvParameters)
 		{
 			UartSendString(UART_PC, "Bomba de pHA encendida\r\n");
 		}
-
 	}
 }
 
-static void LecturaSwitch1(){
-
+static void LecturaSwitch1()
+{
 	on = true;
 }
 
-static void LecturaSwitch2(){
-
+static void LecturaSwitch2()
+{
 	on = false;
 }
+
 /*==================[external functions definition]==========================*/
 void app_main(void){
 
@@ -232,19 +287,21 @@ void app_main(void){
 	AnalogInputInit(&config_ADC);
 	GPIOInit(GPIO_SENSOR_HUM, GPIO_INPUT); // inicializamos el gpio del sensor de humedad como de entrada
 	GPIOInit(GPIO_BOMBA_AGUA, GPIO_OUTPUT); //inicializamos el gpio de la bomba de agua como de salida
+	GPIOInit(GPIO_BOMBA_SOL_ACIDA, GPIO_OUTPUT); //inicializamos el gpio de la bomba de solución ácida como de salida
+	GPIOInit(GPIO_BOMBA_SOL_BASICA, GPIO_OUTPUT); //inicializamos el gpio de la bomba de solución básica como de salida
 	TimerInit(&timer_sensores);
 	TimerInit(&timer_uart);
 	UartInit(&serial_port);
 
-	SwitchActivInt(SWITCH_1, &LecturaSwitch1, NULL );
-	SwitchActivInt(SWITCH_2, &LecturaSwitch2, NULL );
+	SwitchActivInt(SWITCH_1, &LecturaSwitch1, NULL ); //interrupción del SWITCH_1
+	SwitchActivInt(SWITCH_2, &LecturaSwitch2, NULL ); //interrupción del SWITCH_2
 
 	TimerStart(timer_sensores.timer);
 	TimerStart(timer_uart.timer);
 
-	xTaskCreate(&SuministroAgua,"Suministro de agua", 1024, NULL, 4, &suministro_agua_task_handle);
-	xTaskCreate(&ControlpH, "Control pH", 1024, NULL, 4, &control_ph_task_handle);
-	xTaskCreate(&SendData, "Send Data", 1024, NULL, 4, &send_data_task_handle);
+	xTaskCreate(&SuministroAgua,"Suministro de agua", 2048, NULL, 4, &suministro_agua_task_handle);
+	xTaskCreate(&ControlpH, "Control pH", 2048, NULL, 4, &control_ph_task_handle);
+	xTaskCreate(&SendData, "Send Data", 2048, NULL, 4, &send_data_task_handle);
 
 
 }
