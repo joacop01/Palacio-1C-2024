@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Examen-Programable-1C-2024: Examen_parcial</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Examen-Programable-1C-2024<span id="projectnumber">&#160;1.0</span>
+   </div>
+   <div id="projectbrief">Control de riego y pH de una plantera</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">Examen_parcial </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="genDesc"></a>
+Examen parcial de electrónica programable:</h1>
+<p>Dispositivo basado en la ESP-EDU que permita controlar el riego y el pH de una plantera. El sistema está compuesto por una serie de recipientes con agua, una solución de pH ácida y otra básica, un sensor de húmedad y uno de pH, y tres bombas peristálticas para los líquidos. Se cuenta con un sensor de humedad que detecta si la humedad es insuficiente, en ese caso se enciende la bomba de agua cuando el sensor cambia su estado de "0" a "1". Se mantiene un pH en el rango de 6 a 6.7 activando bombas de solución báscia o ácida según corresponda, de acuerdo al valor de pH leído por un sensor analógico, el cual se convierte a digital mediante el ADC y luego se realiza su conversion de mV a su equivalente en pH. Si el pH se encuentra por debajo de 6 se enciende la bomba de solución básica. Por otro lado, si se encuentra por encima de 6.7 se activa la bomba de solución ácida. En caso de que se encuentre en el rango deseado, ninguna de las bombas se activa La medición de agua y pH se realizan cada 3 segundos. Se informa por la UART del estado del sistema cada 5 segundos, indicandose: el pH, si la humedad es correcta o no y, en el caso de que alguna de las bombas se encuentre encendida se informa cual de ellas lo está. Se controla el inicio y detención del sistema mediante las teclas 1 (on) y 2(off).</p>
+<h1><a class="anchor" id="hardConn"></a>
+Hardware Connection</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Peripheral   </th><th class="markdownTableHeadLeft">ESP32    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">PIN+ BOMBA_AGUA   </td><td class="markdownTableBodyLeft">GPIO_0    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">PIN+ BOMBA_SB   </td><td class="markdownTableBodyLeft">GPIO_10    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">PIN+ BOMBA_SA   </td><td class="markdownTableBodyLeft">GPIO_11    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">PIN+ SENSOR_HUM   </td><td class="markdownTableBodyLeft">GPIO_20    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">GND_BOMBA_AGUA   </td><td class="markdownTableBodyLeft">GND    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">GND_BOMBA_SB   </td><td class="markdownTableBodyLeft">GND    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">GND_BOMBA_SA   </td><td class="markdownTableBodyLeft">GND    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">GND_SENSOR_HUM   </td><td class="markdownTableBodyLeft">GND   </td></tr>
+</table>
+<h1><a class="anchor" id="changelog"></a>
+Changelog</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Date   </th><th class="markdownTableHeadLeft">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">11/06/2024   </td><td class="markdownTableBodyLeft">Document creation   </td></tr>
+</table>
+<dl class="section author"><dt>Autor</dt><dd>Joaquin Palacio </dd></dl>
+</div></div><!-- PageDoc -->
+<a href="doxygen_crawl.html"/>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
