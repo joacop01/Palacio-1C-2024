@@ -7,8 +7,8 @@
  *
  * |    Peripheral  |   ESP32   	|
  * |:--------------:|:--------------|
- * | 	Signal   	|	   CH1		|
- * | 	  Vcc     	|	   3.3V		|
+ * | 	 Signal   	|	   CH1		|
+ * | 	  VCC     	|	  3.3 V		|
  * | 	  GND      	|	   GND		|	
  * 
  *
@@ -48,12 +48,12 @@
 /** @def CONFIG_TIMER_A
  * @brief tiempo en micro segundos del timer_A
 */
-#define CONFIG_TIMER_A 1000*1000/FS
+#define CONFIG_TIMER_A (1000*1000/FS)
 
 /** @def CONFIG_TIMER_B
  * @brief tiempo en micro segundos del timer_B
 */
-#define CONFIG_TIMER_B 1000*1000*60
+#define CONFIG_TIMER_B (1000*1000*60)
 
 /** @def TRESHOLD
  * @brief umbral para la deteccion de latidos (Vcc/2)
@@ -64,6 +64,10 @@
  * @brief cantidad de muestras que se toman en 1 minuto de la señal analógica
 */
 #define MUESTRAS_1_MIN CONFIG_TIMER_B/ CONFIG_TIMER_A
+
+#define PERIODO_REF (80)
+
+#define GPIOBUZZ GPIO_20
 
 /*==================[internal data declaration]==============================*/
 
@@ -106,7 +110,9 @@ uint8_t somn;
 /** @var count
  * @brief contador de la cantidad de muestras tomadas(se reinicia cada 1 minuto) 
  * */
-uint16_t count = 0;
+uint32_t count = 0;
+
+int16_t periodo_refractario = 0;
 
 void FuncTimerA(void* param);
 
@@ -136,14 +142,27 @@ void FuncTimerB(void* param)
 {
 
 	//vTaskNotifyGiveFromISR(display_data_task_handle, pdFALSE);
-    //vTaskNotifyGiveFromISR(alarm_manage_task_handle, pdFALSE);
 
 }
 
 void serial_interrupt(void* param)
 {
-    UartReadByte(UART_PC, somn);
-    vTaskNotifyGiveFromISR(detect_drowsines_task_handle, pdFALSE);
+    if(on)
+    {
+        UartReadByte(UART_PC, &somn);
+        if(somn == '0')
+        {
+
+            somnolencia = 0;
+
+        }
+        else if (somn == '1')
+        {
+            somnolencia = 1;
+            xTaskNotifyGive(alarm_manage_task_handle);
+
+        }
+    }
 
 }
 
@@ -155,24 +174,32 @@ static void ProcessSignal(void *pvParameters)
         
         if(on)
         {
-            AnalogInputReadSingle(hr_monitor.ch, &hr_monitor.Signal);
-            processLatestSample(&hr_monitor);
-
             if (count == 0)
             {
                 UartSendString(UART_PC, "S\r\n");   
             }
+            AnalogInputReadSingle(hr_monitor.ch, &hr_monitor.Signal);
+            processLatestSample(&hr_monitor);
+
+
+            //uint8_t *msg =  UartItoa((uint32_t)getLatestSample(&hr_monitor), 10);
+            //UartSendString(UART_PC, (char*)msg);
+            //UartSendString(UART_PC,", ");
             
-            uint8_t *msg =  UartItoa((uint32_t)getLatestSample(&hr_monitor), 10);
-            UartSendString(UART_PC, (char*)msg);
-            UartSendString(UART_PC, "\r\n");
-            //if(sawStartOfBeat(&hr_monitor))
-            //{
-            //    uint8_t *msg =  UartItoa((uint32_t)hr_monitor.IBI, 10);
-            //    UartSendString(UART_PC, (char*)msg);
-            //    UartSendString(UART_PC, "\r\n");
-            //}
+            if(sawStartOfBeat(&hr_monitor))
+            {
+                if(periodo_refractario <= 0 )
+                {
+                    uint8_t *msg =  UartItoa((uint32_t)getInterBeatIntervalMs(&hr_monitor), 10);
+                    UartSendString(UART_PC, (char*)msg);
+                    UartSendString(UART_PC, "\r\n");
+                    periodo_refractario = PERIODO_REF;
+                }
+            }
+
+            periodo_refractario--;
             count++;
+
 
             if (count == MUESTRAS_1_MIN)
             {
@@ -205,28 +232,7 @@ static void AlarmManage(void *pvParameters)
         {
             if(somnolencia)
             {
-            BuzzerPlayRtttl(songStarWars);
-            }
-        }
-    }
-}
-
-static void DetectDrowsines(void *pvParameters) 
-{   
-    while (true)
-    {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-        if(on)
-        {
-            if(somn == '0')
-            {
-
-            somnolencia = 0;
-
-            }
-        else
-            {
-            somnolencia = 1;
+                BuzzerOn();
             }
         }
     }
@@ -234,7 +240,22 @@ static void DetectDrowsines(void *pvParameters)
 
 static void LecturaSwitch1()
 {
-    on = !on;
+    on = true;
+    UartSendString(UART_PC, "S\r\n");
+}
+
+static void LecturaSwitch2()
+{   
+    if(GPIORead(GPIOBUZZ))
+    {
+        BuzzerOff();
+    }
+    else
+    {
+        on = false;
+        UartSendString(UART_PC, "F\r\n");
+    }
+    
 }
 /*==================[external functions definition]==========================*/
 
@@ -264,7 +285,7 @@ void app_main(void) {
     serial_config_t serial_port = {
 		.port = UART_PC,
 		.baud_rate = 115200,
-		.func_p = serial_interrupt,
+		.func_p = &serial_interrupt,
 		.param_p = NULL
 	};
 
@@ -273,24 +294,24 @@ void app_main(void) {
     AnalogInputInit(&config_ADC);
     TimerInit(&timer_A);
     TimerInit(&timer_B);
-    BuzzerInit(GPIO_4);
+    BuzzerInit(GPIO_20);
     SwitchesInit();
 
     TimerStart(timer_A.timer);
     TimerStart(timer_B.timer);
 
     SwitchActivInt(SWITCH_1, &LecturaSwitch1, NULL );
+    SwitchActivInt(SWITCH_2, &LecturaSwitch2, NULL);
 
-    
-    // Inicializar el monitor de frecuencia cardíaca
     printf("Iniciando sensor...\r\n");
     
 
     xTaskCreate(&ProcessSignal, "Process Signal", 2048, NULL, 4, &process_signal_task_handle);
-    xTaskCreate(&DisplayData, "Display Data", 512, NULL, 4, &display_data_task_handle);
-    xTaskCreate(&AlarmManage, "Alarm Manage", 512, NULL, 3, &alarm_manage_task_handle);
-    xTaskCreate(&DetectDrowsines, "Detect Drowsiness", 512, NULL, 4, &detect_drowsines_task_handle);
+    xTaskCreate(&DisplayData, "Display Data", 1024, NULL, 4, &display_data_task_handle);
+    xTaskCreate(&AlarmManage, "Alarm Manage", 2048, NULL, 4, &alarm_manage_task_handle);
+    //xTaskCreate(&DetectDrowsines, "Detect Drowsiness", 2048, NULL, 4, &detect_drowsines_task_handle);
 
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 }
 /*==================[end of file]============================================*/
 
