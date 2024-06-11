@@ -110,16 +110,21 @@ bool on = 0;
 
 /** 
 * @brief enciende la bomba de agua en caso de que el sensor de humedad lo indique
-* @param[in] pvParameter puntero tipo void 
+* @param[in] pvParameter puntero tipo void.
 */
 static void SuministroAgua(void *pvParameters);
 
 /** 
 * @brief maneja el control de las bombas de soluciones ácidas y básicas de acuerdo al valor de pH
-* @param[in] pvParameter puntero tipo void 
+* @param[in] pvParameter puntero tipo void
 */
 static void ControlpH(void *pvParameters); 
 
+/** 
+* @brief controla el envío de datos por la UART acerca del estado del sistema
+* @param[in] pvParameter puntero tipo void 
+*/
+static void SendData(void *pvParameters);
 /**
  * @fn void FuncTimerA(void *param)
  * @brief Notifica a las tareas de suministro de agua y control de pH para que se encuentren listas
@@ -146,10 +151,10 @@ static void LecturaSwitch1();
  */
 static void LecturaSwitch2();
 
-/*==================[internal functions declaration]=========================*/
+/*==================[internal functions declaration]===============================*/
 
-void FuncTimerA(void* param){
-
+void FuncTimerA(void* param)
+{
 	vTaskNotifyGiveFromISR(suministro_agua_task_handle, pdFALSE);
 	vTaskNotifyGiveFromISR(control_ph_task_handle, pdFALSE);
 }
@@ -253,7 +258,8 @@ static void LecturaSwitch2()
 }
 
 /*==================[external functions definition]==========================*/
-void app_main(void){
+void app_main(void)
+{
 
 	analog_input_config_t config_ADC = {
     .input = CH1,
