@@ -55,14 +55,40 @@ TaskHandle_t suministro_agua_task_handle = NULL;
 TaskHandle_t control_ph_task_handle = NULL;
 TaskHandle_t send_data_task_handle = NULL;
 
-uint32_t pH; // variable donde se almacena el pH leído
+uint16_t pH; // variable donde se almacena el pH leído
 
+/**
+ * @var on
+ * @brief booleano que indica si el sistema está activo
+*/
+bool on = 0;
 
 static void SuministroAgua(void *pvParameters); // funcion que controla el suministro de agua
 static void ControlpH(void *pvParameters); // funcion que controla el pH
 
-void FuncTimerA(void *param); // funcion de callback del timer A
+/**
+ * @fn void FuncTimerA(void *param)
+ * @brief Notifica a las tareas de calcular distancia, manejo de leds y mostrar distancias para que se 
+ * encuentren listas
+ * @param[in] param puntero tipo void
+ */
+void FuncTimerA(void *param);
+
+
 void FuncTimerB(void *param); // funcion de callback del timer B
+
+
+/**
+ * @fn static void LecturaSwitch1 ()
+ * @brief Se ejecuta al presionarse la tecla 1, cambia el estado del booleano on
+ */
+static void LecturaSwitch1();
+
+/**
+ * @fn static void LecturaSwitch2 ()
+ * @brief Se ejecuta al presionarse la tecla 2, cambia el estado del booleano hold
+ */
+static void LecturaSwitch2();
 /*==================[internal functions declaration]=========================*/
 void FuncTimerA(void* param){
 
@@ -72,7 +98,7 @@ void FuncTimerA(void* param){
 
 void FuncTimerB(void* param)
 {
-
+	vTaskNotifyGiveFromISR(send_data_task_handle, pdFALSE);
 }
 
 
@@ -134,13 +160,14 @@ static void SendData(void *pvParameters)
 		uint8_t *msg = UartItoa(pH, BASE);
 		UartSendString(UART_PC, (char*)msg);
 		UartSendString(UART_PC, ", ");
-		if (pH >= 6 && pH <= 6.7)
+
+		if (GPIORead(GPIO_SENSOR_HUM)) //si el sensor está en 1 quiere decir que la humedad no es la correcta
 		{
-			UartSendString(UART_PC, "humedad correcta"); //si el pH esta en el rango correcto.
+			UartSendString(UART_PC, "humedad incorrecta");
 		}
 		else
 		{
-			UartSendString(UART_PC, "humedad incorrecta"); // si el pH NO está en el rango correcto.
+			UartSendString(UART_PC, "humedad correcta"); // si el sensor está en 0, la humedad es correcta.
 		}
 
 		UartSendString(UART_PC, "\r\n");
@@ -159,6 +186,16 @@ static void SendData(void *pvParameters)
 		}
 
 	}
+}
+
+static void LecturaSwitch1(){
+
+	on = true;
+}
+
+static void LecturaSwitch2(){
+
+	on = false;
 }
 /*==================[external functions definition]==========================*/
 void app_main(void){
@@ -185,14 +222,30 @@ void app_main(void){
 	.param_p = NULL
     };
 
+	serial_config_t serial_port = {
+	.port = UART_PC,
+	.baud_rate = 115200,
+	.func_p = NULL,
+	.param_p = NULL
+	};
+
 	AnalogInputInit(&config_ADC);
 	GPIOInit(GPIO_SENSOR_HUM, GPIO_INPUT); // inicializamos el gpio del sensor de humedad como de entrada
-	GPIOInit(GPIO_BOMBA_AGUA, GPIO_OUTPUT);
+	GPIOInit(GPIO_BOMBA_AGUA, GPIO_OUTPUT); //inicializamos el gpio de la bomba de agua como de salida
+	TimerInit(&timer_sensores);
+	TimerInit(&timer_uart);
+	UartInit(&serial_port);
+
+	SwitchActivInt(SWITCH_1, &LecturaSwitch1, NULL );
+	SwitchActivInt(SWITCH_2, &LecturaSwitch2, NULL );
+
 	TimerStart(timer_sensores.timer);
 	TimerStart(timer_uart.timer);
 
 	xTaskCreate(&SuministroAgua,"Suministro de agua", 1024, NULL, 4, &suministro_agua_task_handle);
 	xTaskCreate(&ControlpH, "Control pH", 1024, NULL, 4, &control_ph_task_handle);
 	xTaskCreate(&SendData, "Send Data", 1024, NULL, 4, &send_data_task_handle);
+
+
 }
 /*==================[end of file]============================================*/
