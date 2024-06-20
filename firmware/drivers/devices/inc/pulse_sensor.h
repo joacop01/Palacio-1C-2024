@@ -24,59 +24,95 @@
 
 /*==================[typedef]================================================*/
 typedef struct 
-{
-    /// @brief variable donde se guarda la frecuencia cardiaca en latidos por minuto
+{ 
+    /** @var BPM
+    * @brief variable donde se guarda la frecuencia cardiaca en latidos por minuto
+    */
     uint16_t BPM;    
 
-    /// @brief variable donde se guarda la señal analógica digitalizada
+     /** @var Signal
+    * @brief variable donde se guarda la señal analógica digitalizada
+    */
     uint16_t Signal;
 
-    /// @brief variable donde se guarda el intervalo entre latidos en ms 
+     /** @var IBI
+    * @brief variable donde se guarda el intervalo entre latidos en ms
+    */
     uint16_t IBI;    
 
-    /// @brief true cuando la señal está dentro de un latido
+    /** @var Pulse
+    * @brief true cuando la señal está dentro de un latido
+    */
     bool Pulse;       
 
-    /// @brief true cuando se detecta el comienzo de un latido
+    /** @var QS
+    * @brief true cuando se detecta el comienzo de un latido
+    */
     bool QS;       
 
-    /// @brief used to seed and reset the thresh variable
+    /** @var threshSetting
+    * @brief used to seed and reset the thresh variable
+    */
     uint16_t threshSetting;
 
-    /// @brief used to hold amplitude of pulse waveform, seeded (sample value)
+    /** @var amp
+    * @brief used to hold amplitude of pulse waveform, seeded (sample value)
+    */
     uint16_t amp;
 
-    /// @brief time when the last beat occurs
+    /** @var lastBeatTime
+    * @brief time when the last beat occurs
+    */
     uint16_t lastBeatTime;   
 
-    /// @brief expected time between calls to readSensor(), in milliseconds.
+    /** @var sampleIntervalMs
+    * @brief expected time between calls to readSensor(), in milliseconds.
+    */
     uint16_t sampleIntervalMs;
 
-    /// @brief array to hold last ten IBI values (ms)
+    /** @var rate[10]
+    * @brief array to hold last ten IBI values (ms)
+    */
     uint16_t rate[10];   
 
-    /// @brief used to determine pulse timing. Milliseconds since we started.
+    /** @var sampleCounter
+    * @brief used to determine pulse timing. Milliseconds since we started.
+    */
     uint16_t sampleCounter; 
 
-    /// @brief used to monitor duration between beats
+    /** @var N
+    * @brief used to monitor duration between beats
+    */
     uint16_t N;              
 
-    /// @brief used to find peak in pulse wave, seeded (sample value)
+    /** @var P
+    * @brief used to find peak in pulse wave, seeded (sample value)
+    */
     uint16_t P;    
     
-    /// @brief used to find trough in pulse wave, seeded (sample value)
+    /** @var T
+    * @brief used to find trough in pulse wave, seeded (sample value)
+    */
     uint16_t T;   
                             
-    /// @brief 
+    /** @var thresh
+    * @brief umbral con el que se compara la señal
+    */
     uint16_t thresh;
 
-    /// @brief 
+    /** @var firstBeat
+    * @brief true si se encuentra en el primer latido
+    */
     bool firstBeat;   
 
-    /// @brief 
+    /** @var secondBeat
+    * @brief true si se encuentra en el segundo latido
+    */
     bool secondBeat;  
 
-    /// @brief 
+    /** @var ch
+    * @brief canal del que se lee la señal de pulso
+    */
     adc_ch_t ch;
 
 } HeartRateMonitor;
