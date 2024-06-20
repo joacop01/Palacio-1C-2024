@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Proyecto Final", "index.html", [
+  [ "Proyecto final", "index.html", [
     [ "ProyectoFinal", "index.html", "index" ],
     [ "Template", "md_firmware_2projects_2_proyecto_final_2_r_e_a_d_m_e.html", null ],
     [ "Topics", "topics.html", "topics" ],
@@ -51,12 +51,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_c_make_files_23_824_80_2_compiler_id_c_2_c_make_c_compiler_id_8c.html",
-"bootloader_2config_2sdkconfig_8h.html#a3f2327dd03fc37c6b6d157681db13a3f",
-"bootloader_2config_2sdkconfig_8h.html#aaaeec597bf883f9366b1088144945814",
-"config_2sdkconfig_8h.html#a16bfae62980fb6506592a8caf6e209d3",
-"config_2sdkconfig_8h.html#a5c35f483fcac5a932e5c5b4ff92c145d",
-"config_2sdkconfig_8h.html#aa39a6725523e24fd715377a579c9e97f",
-"config_2sdkconfig_8h.html#aed1f94eb68f50b0d21dd030f99016276"
+"bootloader_2config_2sdkconfig_8h.html#a3f5e2cdfb561a784d4cc31120967c03b",
+"bootloader_2config_2sdkconfig_8h.html#aab37579525fb56759a63e742f1ad01b8",
+"config_2sdkconfig_8h.html#a16f9a9215a5ac8b5c851c0abcefdedb7",
+"config_2sdkconfig_8h.html#a5c652ee0a4acdcd82e5f0241f7ea1aeb",
+"config_2sdkconfig_8h.html#aa39d679a0ed437b96228d31c34c09569",
+"config_2sdkconfig_8h.html#aed2d3ac7ceb116817e622c267e45bab0"
 ];
 
 var SYNCONMSG = 'pulsar para deshabilitar sincronización';

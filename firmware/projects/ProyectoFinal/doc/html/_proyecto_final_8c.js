@@ -11,7 +11,6 @@ var _proyecto_final_8c =
     [ "AlarmManage", "_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd", null ],
     [ "app_main", "_proyecto_final_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70", null ],
     [ "FuncTimerA", "_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1", null ],
-    [ "FuncTimerB", "_proyecto_final_8c.html#a5088c3325764095ca222dc78c328f466", null ],
     [ "FuncTimerSenial", "_proyecto_final_8c.html#a7abd1c0b0bdd5a062b3a36bf63dd2e9b", null ],
     [ "LecturaSwitch1", "_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c", null ],
     [ "LecturaSwitch2", "_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf", null ],

@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"config_2sdkconfig_8h.html#aed1f94eb68f50b0d21dd030f99016276":[4,0,0,0,0,0,3,0,734],
 "config_2sdkconfig_8h.html#aed2d3ac7ceb116817e622c267e45bab0":[4,0,0,0,0,0,3,0,116],
 "config_2sdkconfig_8h.html#aed35477fc5f7d220395cadf8371cd55a":[4,0,0,0,0,0,3,0,553],
 "config_2sdkconfig_8h.html#aee46eaa04733ec71b3bee81966bdb144":[4,0,0,0,0,0,3,0,141],
@@ -112,8 +111,8 @@ var NAVTREEINDEX6 =
 "globals_b.html":[4,1,0,2],
 "globals_c.html":[4,1,0,3],
 "globals_d.html":[4,1,0,4],
-"globals_defs.html":[4,1,3,0],
 "globals_defs.html":[4,1,3],
+"globals_defs.html":[4,1,3,0],
 "globals_defs_a.html":[4,1,3,1],
 "globals_defs_c.html":[4,1,3,2],
 "globals_defs_d.html":[4,1,3,3],
@@ -162,8 +161,8 @@ var NAVTREEINDEX6 =
 "heart__pic_8h.html#a4c01abcd0c50cc006c88600f58df952d":[4,0,0,0,0,1,0,2],
 "heart__pic_8h.html#ab147acad2c7e8c688b76f23bbe422f10":[4,0,0,0,0,1,0,0],
 "heart__pic_8h_source.html":[4,0,0,0,0,1,0],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#changelog":[0,2],
 "index.html#genDesc":[0,0],
 "index.html#hardConn":[0,1],
