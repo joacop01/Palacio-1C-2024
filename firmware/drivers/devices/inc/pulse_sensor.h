@@ -84,60 +84,96 @@ typedef struct
 
 /*==================[external functions declaration]=========================*/
 
-/// @brief 
-/// @param hr_monitor 
+/**
+ * @fn void initPulseSensor(HeartRateMonitor *hr_monitor)
+ * @brief inicializacion del sensor
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ */
 void initPulseSensor(HeartRateMonitor *hr_monitor);
 
-/// @brief 
-/// @param hr_monitor 
+/**
+ * @fn void resetVariables(HeartRateMonitor *hr_monitor);
+ * @brief reseteo de las variables del monitor de frecuencia cardíaca
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ */
 void resetVariables(HeartRateMonitor *hr_monitor);
 
-/// @brief 
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn uint16_t getLatestSample(HeartRateMonitor *hr_monitor)
+ * @brief devuelve la ultima muestra de la señal de PPG
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return uint16_t ultima muestra de la señal
+ */
 uint16_t getLatestSample(HeartRateMonitor *hr_monitor);
  
-/// @brief Returns the latest beats-per-minute measurement on this PulseSensor.
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn uint16_t getBeatsPerMinute(HeartRateMonitor *hr_monitor)
+ * @brief devuelve la frecuencia cardiaca actual
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return uint16_t BPM actual
+ */
 uint16_t getBeatsPerMinute(HeartRateMonitor *hr_monitor);
  
-/// @brief Returns the latest inter-beat interval (milliseconds) on this PulseSensor.
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn uint16_t getInterBeatIntervalMs(HeartRateMonitor *hr_monitor)
+ * @brief devuelve el intervalo entre latidos actual
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return uint16_t IBI actual
+ */
 uint16_t getInterBeatIntervalMs(HeartRateMonitor *hr_monitor);
 
-/// @brief Reads and clears the 'saw start of beat' flag, "QS".
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn bool sawStartOfBeat(HeartRateMonitor *hr_monitor)
+ * @brief devuelve true si detecta el inicio de un latido
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return bool determina si se encuentra ante el inicio de un latido o no
+ */
 bool sawStartOfBeat(HeartRateMonitor *hr_monitor);
 
-/// @brief Returns true if this PulseSensor signal is inside a beat vs. outside.
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn bool isInsideBeat(HeartRateMonitor *hr_monitor)
+ * @brief devuelve true si se encuentra dentro de un latido
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return bool determina si se encuentra dentro de un latido
+ */
 bool isInsideBeat(HeartRateMonitor *hr_monitor);
 
-/// @brief Returns the latest amp value.
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn uint16_t getPulseAmplitude(HeartRateMonitor *hr_monitor)
+ * @brief devuelve el ultimo valor de amplitud
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return uint16_t amplitud de la señal de pulso
+ */
 uint16_t getPulseAmplitude(HeartRateMonitor *hr_monitor);
 
-/// @brief Returns the sample number of the most recent detected pulse.
-/// @param hr_monitor 
-/// @return 
+/**
+ * @fn uint16_t getLastBeatTime(HeartRateMonitor *hr_monitor)
+ * @brief devuelve el numero de muestras que paso desde el ultimo latido detectado
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @return uint16_t numero de muestras desde el ultimo latido detectado
+ */
 uint16_t getLastBeatTime(HeartRateMonitor *hr_monitor);
 
-/// @brief 
-/// @param hr_monitor 
+/**
+ * @fn void readNextSample(HeartRateMonitor *hr_monitor)
+ * @brief lee la señal analogica del sensor y realiza su conversion ADC
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ */
 void readNextSample(HeartRateMonitor *hr_monitor);
 
-/// @brief 
-/// @param hr_monitor 
+/**
+ * @fn void processLatestSample(HeartRateMonitor *hr_monitor)
+ * @brief realiza el procesamiento de la ultima muestra(calculo de BPM, IBI, ect)
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ */
 void processLatestSample(HeartRateMonitor *hr_monitor);
 
-/// @brief 
-/// @param hr_monitor 
-/// @param threshold 
+/**
+ * @fn void setThreshold(HeartRateMonitor *hr_monitor, uint16_t threshold)
+ * @brief seteo del treshold mediante el cual se detectan latidos
+ * @param[in] hr_monitor puntero a struct HearRateMonitor
+ * @param[in] treshold entero de 16 bits que determina el nuevo umbral
+ */
 void setThreshold(HeartRateMonitor *hr_monitor, uint16_t threshold);
 
 #endif // PULSE_SENSOR_H

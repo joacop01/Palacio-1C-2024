@@ -18,6 +18,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "analog_io_mcu.h"
+#include "led.h"
 
 /*==================[macros and definitions]=================================*/
 
@@ -37,8 +38,8 @@ void resetVariables(HeartRateMonitor *hr_monitor){
   hr_monitor->Pulse = false;
   hr_monitor->sampleCounter = 0;
   hr_monitor->lastBeatTime = 0;
-  hr_monitor->P = 1600;                    // peak at 1/2 the input range of 0..1023
-  hr_monitor->T = 1600;                    // trough at 1/2 the input range.
+  hr_monitor->P = 1650;                    // peak at 1/2 the input range of 0..1023
+  hr_monitor->T = 1650;                    // trough at 1/2 the input range.
   hr_monitor->N = 0;
   hr_monitor->thresh = hr_monitor->threshSetting;     // reset the thresh variable with user defined THRESHOLD
   hr_monitor->amp = 100;                  // beat amplitude 1/10 of input range.
@@ -103,9 +104,10 @@ void processLatestSample(HeartRateMonitor *hr_monitor) {
 
   //  NOW IT'S TIME TO LOOK FOR THE HEART BEAT
   // signal surges up in value every time there is a pulse
-  if (hr_monitor->N > 250) {                             // avoid high frequency noise
+  if (hr_monitor->N > 400) {                             // avoid high frequency noise
     if ( (hr_monitor->Signal > hr_monitor->thresh) && (hr_monitor->Pulse == false) && (hr_monitor->N > (hr_monitor->IBI / 5) * 3) ) {
       hr_monitor->Pulse = true;             // set the Pulse flag when we think there is a pulse
+      LedOn(LED_1);
       hr_monitor->IBI = hr_monitor->sampleCounter - hr_monitor->lastBeatTime;    // measure time between beats in mS
       hr_monitor->lastBeatTime = hr_monitor->sampleCounter;          // keep track of time for next pulse
 
@@ -141,7 +143,8 @@ void processLatestSample(HeartRateMonitor *hr_monitor) {
   }
 
   if (hr_monitor->Signal < hr_monitor->thresh && hr_monitor->Pulse == true) {  // when the values are going down, the beat is over
-    hr_monitor->Pulse = false;       // reset the Pulse flag so we can do it again                    
+    hr_monitor->Pulse = false;       // reset the Pulse flag so we can do it again  
+    LedOff(LED_1);               
     hr_monitor->amp = hr_monitor->P - hr_monitor->T;                           // get amplitude of the pulse wave
     hr_monitor->thresh = hr_monitor->amp / 2 + hr_monitor->T;                  // set thresh at 50% of the amplitude
     hr_monitor->P = hr_monitor->thresh;                            // reset these for next time
@@ -150,8 +153,8 @@ void processLatestSample(HeartRateMonitor *hr_monitor) {
 
   if (hr_monitor->N > 1200) {                          // if 1.2 seconds go by without a beat
     hr_monitor->thresh = hr_monitor->threshSetting;                // set thresh default
-    hr_monitor->P = 512;                               // set P default
-    hr_monitor->T = 512;                               // set T default
+    hr_monitor->P = 1650;                               // set P default
+    hr_monitor->T = 1650;                               // set T default
     hr_monitor->lastBeatTime = hr_monitor->sampleCounter;          // bring the lastBeatTime up to date
     hr_monitor->firstBeat = true;                      // set these to avoid noise
     hr_monitor->secondBeat = false;                    // when we get the heartbeat back
