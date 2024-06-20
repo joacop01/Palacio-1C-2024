@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['sdkconfig_2eh_0',['sdkconfig.h',['../bootloader_2config_2sdkconfig_8h.html',1,'(Espacio de nombres global)'],['../config_2sdkconfig_8h.html',1,'(Espacio de nombres global)']]],
+  ['serial_5finterrupt_1',['serial_interrupt',['../_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a',1,'ProyectoFinal.c']]],
+  ['signal_5ft_2',['signal_t',['../structsignal__t.html',1,'']]],
+  ['size_3',['SIZE',['../bootloader_2_c_make_files_2_check_type_size_2_t_i_m_e___t___s_i_z_e_8c.html#a70ed59adcb4159ac551058053e649640',1,'SIZE:&#160;TIME_T_SIZE.c'],['../_c_make_files_2_check_type_size_2_t_i_m_e___t___s_i_z_e_8c.html#a70ed59adcb4159ac551058053e649640',1,'SIZE:&#160;TIME_T_SIZE.c']]],
+  ['somn_4',['somn',['../_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9',1,'ProyectoFinal.c']]],
+  ['somnolencia_5',['somnolencia',['../_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4',1,'ProyectoFinal.c']]],
+  ['ssl_5fdebug_5fhelpers_5fgenerated_2ec_6',['ssl_debug_helpers_generated.c',['../ssl__debug__helpers__generated_8c.html',1,'']]],
+  ['stringify_7',['STRINGIFY',['../bootloader_2_c_make_files_23_824_80_2_compiler_id_c_2_c_make_c_compiler_id_8c.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY:&#160;CMakeCCompilerId.c'],['../bootloader_2_c_make_files_23_824_80_2_compiler_id_c_x_x_2_c_make_c_x_x_compiler_id_8cpp.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY:&#160;CMakeCXXCompilerId.cpp'],['../_c_make_files_23_824_80_2_compiler_id_c_2_c_make_c_compiler_id_8c.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY:&#160;CMakeCCompilerId.c'],['../_c_make_files_23_824_80_2_compiler_id_c_x_x_2_c_make_c_x_x_compiler_id_8cpp.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY:&#160;CMakeCXXCompilerId.cpp']]],
+  ['stringify_5fhelper_8',['STRINGIFY_HELPER',['../bootloader_2_c_make_files_23_824_80_2_compiler_id_c_2_c_make_c_compiler_id_8c.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER:&#160;CMakeCCompilerId.c'],['../bootloader_2_c_make_files_23_824_80_2_compiler_id_c_x_x_2_c_make_c_x_x_compiler_id_8cpp.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER:&#160;CMakeCXXCompilerId.cpp'],['../_c_make_files_23_824_80_2_compiler_id_c_2_c_make_c_compiler_id_8c.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER:&#160;CMakeCCompilerId.c'],['../_c_make_files_23_824_80_2_compiler_id_c_x_x_2_c_make_c_x_x_compiler_id_8cpp.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER:&#160;CMakeCXXCompilerId.cpp']]]
+];

@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Proyecto Final: Archivo de código fuente firmware/projects/ProyectoFinal/main/ProyectoFinal.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Proyecto Final<span id="projectnumber">&#160;1.0</span>
+   </div>
+   <div id="projectbrief">Proyecto final de electronica programable 1C 2024</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_proyecto_final_8c_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">ProyectoFinal.c</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_proyecto_final_8c.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">/*==================[inclusions]=============================================*/</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#include &quot;freertos/FreeRTOS.h&quot;</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#include &quot;freertos/task.h&quot;</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#include &quot;analog_io_mcu.h&quot;</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#include &quot;pulse_sensor.h&quot;</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#include &quot;timer_mcu.h&quot;</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#include &quot;buzzer.h&quot;</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#include &quot;buzzer_melodies.h&quot;</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#include &quot;uart_mcu.h&quot;</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#include &quot;switch.h&quot;</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#include &quot;led.h&quot;</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#include &quot;sys/time.h&quot;</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#include &quot;iir_filter.h&quot;</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#include &quot;gpio_mcu.h&quot;</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#include &quot;rtc_mcu.h&quot;</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#include &quot;ili9341.h&quot;</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#include &quot;<a class="code" href="roll__plot_8h.html">roll_plot.h</a>&quot;</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#include &quot;<a class="code" href="heart__pic_8h.html">heart_pic.h</a>&quot;</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">/*==================[macros and definitions]=================================*/</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a25022864dfc8ec428e7128282e57b136">   86</a></span><span class="preprocessor">#define CHUNK               16 </span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">   87</a></span><span class="preprocessor">#define LIGHT_BLUE_COLOR    0x0B2F</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a30588c5eca7c9cb6ebba02a0236f0119">   93</a></span><span class="preprocessor">#define FS 200 </span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a566852534dddb456424b8f5f661c8913">   98</a></span><span class="preprocessor">#define CONFIG_TIMER_A (1000*1000/FS)</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ab320100bdc9fa7e2092ee1cbd41cf2a8">  103</a></span><span class="preprocessor">#define TRESHOLD 1650</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#af9ca08a569011cdad147d233689bf1d9">  108</a></span><span class="preprocessor">#define MUESTRAS_1_MIN (1000*1000*60)/ CONFIG_TIMER_A</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a53ae6b067d36f0e329a9064eff9faa8e">  113</a></span><span class="preprocessor">#define PERIODO_REF (80)</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a210847fd5dceb7a0cf6e00051bf78df6">  118</a></span><span class="preprocessor">#define GPIOBUZZ GPIO_3</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">/*==================[internal data declaration]==============================*/</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment">/*==================[internal functions declaration]=========================*/</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">/*==================[internal data definition]===============================*/</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a4cf18bfef9938a35c2b2b0378bdaab86">  126</a></span>TaskHandle_t <a class="code hl_variable" href="_proyecto_final_8c.html#a4cf18bfef9938a35c2b2b0378bdaab86">plot_task_handle</a> = NULL;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a50093816f38c0e11ef2cc3c641b14ebd">  127</a></span>TaskHandle_t <a class="code hl_variable" href="_proyecto_final_8c.html#a50093816f38c0e11ef2cc3c641b14ebd">process_signal_task_handle</a> = NULL;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a7007d4e79a6aeff9695c57a36b93914b">  128</a></span>TaskHandle_t <a class="code hl_variable" href="_proyecto_final_8c.html#a7007d4e79a6aeff9695c57a36b93914b">alarm_manage_task_handle</a> = NULL;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="};">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a5268590218f515dc8332bf4429f45bca">  133</a></span>HeartRateMonitor <a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a> = </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    .ch = CH1,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    .sampleIntervalMs = (1000/<a class="code hl_define" href="_proyecto_final_8c.html#a30588c5eca7c9cb6ebba02a0236f0119">FS</a>),</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    .threshSetting = <a class="code hl_define" href="_proyecto_final_8c.html#ab320100bdc9fa7e2092ee1cbd41cf2a8">TRESHOLD</a></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>};</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">  143</a></span>uint16_t <a class="code hl_variable" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ad698948e2b19090452b7a78231997b9a">  148</a></span>uint8_t <a class="code hl_variable" href="_proyecto_final_8c.html#ad698948e2b19090452b7a78231997b9a">frecuencia_cardiaca</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">  153</a></span><span class="keywordtype">bool</span> <a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">  158</a></span><span class="keywordtype">bool</span> <a class="code hl_variable" href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">buzz</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">  163</a></span><span class="keywordtype">bool</span> <a class="code hl_variable" href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">somnolencia</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">  168</a></span>uint8_t <a class="code hl_variable" href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">somn</a>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">  173</a></span>uint32_t <a class="code hl_variable" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a> = 0;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">  178</a></span>int16_t <a class="code hl_variable" href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">periodo_refractario</a> = 0;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1">FuncTimerA</a>(<span class="keywordtype">void</span>* param);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a5088c3325764095ca222dc78c328f466">  192</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a5088c3325764095ca222dc78c328f466">FuncTimerB</a>(<span class="keywordtype">void</span>* param);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a">serial_interrupt</a>(<span class="keywordtype">void</span>* param);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a6fd3b97f4d86857bbc868cfe81ee1759">ProcessSignal</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd">AlarmManage</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a950cf4816415071964e0781d551bc637">PlotTask</a>(<span class="keywordtype">void</span> *pvParameters);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c">LecturaSwitch1</a>();</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf">LecturaSwitch2</a>();</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">/*==================[external data definition]===============================*/</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">/*==================[internal functions definition]==========================*/</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1">  234</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1">FuncTimerA</a>(<span class="keywordtype">void</span>* param)</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>{</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    vTaskNotifyGiveFromISR(<a class="code hl_variable" href="_proyecto_final_8c.html#a50093816f38c0e11ef2cc3c641b14ebd">process_signal_task_handle</a>, pdFALSE);   </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>}</div>
+</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a">  239</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a">serial_interrupt</a>(<span class="keywordtype">void</span>* param)</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>{</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a>)</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        UartReadByte(UART_PC, &amp;<a class="code hl_variable" href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">somn</a>);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">somn</a> == <span class="charliteral">&#39;0&#39;</span>)</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">somnolencia</a> = 0;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">somn</a> == <span class="charliteral">&#39;1&#39;</span>)</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">somnolencia</a> = 1;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            xTaskNotifyGive(<a class="code hl_variable" href="_proyecto_final_8c.html#a7007d4e79a6aeff9695c57a36b93914b">alarm_manage_task_handle</a>);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
+</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a6fd3b97f4d86857bbc868cfe81ee1759">  256</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a6fd3b97f4d86857bbc868cfe81ee1759">ProcessSignal</a>(<span class="keywordtype">void</span> *pvParameters) </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>{</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a>)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            AnalogInputReadSingle(<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>.ch, &amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>.Signal);</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            processLatestSample(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a> == 0)</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>                UartSendString(UART_PC, <span class="stringliteral">&quot;S\r\n&quot;</span>);   </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            }</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <span class="keywordflow">if</span>(sawStartOfBeat(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>))</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">periodo_refractario</a> &lt;= 0 )</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                    uint8_t *msg =  UartItoa((uint32_t)getInterBeatIntervalMs(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>), 10);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                    UartSendString(UART_PC, (<span class="keywordtype">char</span>*)msg);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                    UartSendString(UART_PC, <span class="stringliteral">&quot;\r\n&quot;</span>);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                    <a class="code hl_variable" href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">periodo_refractario</a> = <a class="code hl_define" href="_proyecto_final_8c.html#a53ae6b067d36f0e329a9064eff9faa8e">PERIODO_REF</a>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">periodo_refractario</a>--;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a>++;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a> == <a class="code hl_define" href="_proyecto_final_8c.html#af9ca08a569011cdad147d233689bf1d9">MUESTRAS_1_MIN</a>)</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                UartSendString(UART_PC, <span class="stringliteral">&quot;E\r\n&quot;</span>);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>                <a class="code hl_variable" href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a> = 0;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            }            </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    }</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>}</div>
+</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="foldopen" id="foldopen00293" data-start="{" data-end="}">
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd">  293</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd">AlarmManage</a>(<span class="keywordtype">void</span> *pvParameters) </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>{   </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    {</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a>)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        {</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">somnolencia</a>)</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            {</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                BuzzerOn();</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                <a class="code hl_variable" href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">buzz</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            }</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        }</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    }</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>}</div>
+</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="foldopen" id="foldopen00309" data-start="{" data-end="}">
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c">  309</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c">LecturaSwitch1</a>()</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>{</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordflow">if</span>(!<a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a>)</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        UartSendString(UART_PC, <span class="stringliteral">&quot;S\r\n&quot;</span>);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">buzz</a>)</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    {</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        BuzzerOff();</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <a class="code hl_variable" href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">buzz</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    }  </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>}</div>
+</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="foldopen" id="foldopen00324" data-start="{" data-end="}">
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf">  324</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf">LecturaSwitch2</a>()</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>{</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a>)</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    {     </div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        <a class="code hl_variable" href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        UartSendString(UART_PC, <span class="stringliteral">&quot;F\r\n&quot;</span>);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>}</div>
+</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="foldopen" id="foldopen00337" data-start="{" data-end="}">
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a7abd1c0b0bdd5a062b3a36bf63dd2e9b">  337</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a7abd1c0b0bdd5a062b3a36bf63dd2e9b">FuncTimerSenial</a>(<span class="keywordtype">void</span>* param){</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    xTaskNotifyGive(<a class="code hl_variable" href="_proyecto_final_8c.html#a4cf18bfef9938a35c2b2b0378bdaab86">plot_task_handle</a>);</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>}</div>
+</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="foldopen" id="foldopen00346" data-start="{" data-end="}">
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a950cf4816415071964e0781d551bc637">  346</a></span><span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a950cf4816415071964e0781d551bc637">PlotTask</a>(<span class="keywordtype">void</span> *pvParameter){</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <span class="keyword">static</span> uint8_t indice = 0;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        <span class="keyword">static</span> <span class="keywordtype">char</span> freq[] = <span class="stringliteral">&quot;000&quot;</span>;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keyword">static</span> <span class="keywordtype">char</span> hour_min[] = <span class="stringliteral">&quot;00:00&quot;</span>;</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="keyword">static</span> <span class="keywordtype">bool</span> beat = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        rtc_t actual_time;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        <span class="comment">/* Configuración de área de gráfica */</span></div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        <a class="code hl_struct" href="structplot__t.html">plot_t</a> plot1 = {</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>            .<a class="code hl_variable" href="group___rollplot.html#gac71bd9deb3801b55b5033e025d1f48f0">x_pos</a> = 0,</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>            .y_pos = 160,</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>            .width = 240,</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>            .height = 100,</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>            .x_scale = 30,</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>            .back_color = ILI9341_WHITE</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        };</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        <a class="code hl_function" href="group___rollplot.html#gaf7abadd5aac29e85950c6621636806d6">RTPlotInit</a>(&amp;plot1); </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="comment">/* Configuración de señal a graficar */</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <a class="code hl_struct" href="structsignal__t.html">signal_t</a> ecg1 = {</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>            .<a class="code hl_variable" href="group___rollplot.html#ga0847f6ddf1428e34cd8606782d523fd6">y_scale</a> = 40,</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            .y_offset = 50,</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            .color = ILI9341_RED,</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            .x_prev = 0,</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>            .y_prev = 0</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        };</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>        <a class="code hl_function" href="group___rollplot.html#ga1ce2cc6a579e86780693670650003ef0">RTSignalInit</a>(&amp;plot1, &amp;ecg1);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        <span class="keywordflow">while</span>(<span class="keyword">true</span>){</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            ulTaskNotifyTake(pdTRUE, portMAX_DELAY);</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#ad698948e2b19090452b7a78231997b9a">frecuencia_cardiaca</a> = getBeatsPerMinute(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a> = getLatestSample(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>);</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            <a class="code hl_variable" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a> = <a class="code hl_variable" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a> - 1850;</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>            <span class="comment">/* Filtrado de señal */</span></div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>            <span class="comment">/* Graficación de señal */</span></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>            <span class="keywordflow">for</span>(uint8_t i=0; i&lt;<a class="code hl_define" href="_proyecto_final_8c.html#a25022864dfc8ec428e7128282e57b136">CHUNK</a>; i++){</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>                <a class="code hl_function" href="group___rollplot.html#gad1074bc2dfd75e8e57070563d3bb64d2">RTPlotDraw</a>(&amp;ecg1, <a class="code hl_variable" href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a>);</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>            }</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>            indice +=<a class="code hl_define" href="_proyecto_final_8c.html#a25022864dfc8ec428e7128282e57b136">CHUNK</a>;</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span> </div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>            <span class="keywordflow">if</span>(indice == 0){</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>                <span class="comment">/* Actualización de datos en display */</span></div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>                ILI9341DrawString(20, 60, freq, &amp;font_89, ILI9341_WHITE, ILI9341_WHITE);</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>                ILI9341DrawString(10, 8, hour_min, &amp;font_30, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>                sprintf(freq, <span class="stringliteral">&quot;%03i&quot;</span>, <a class="code hl_variable" href="_proyecto_final_8c.html#ad698948e2b19090452b7a78231997b9a">frecuencia_cardiaca</a>);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>                RtcRead(&amp;actual_time);</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>                sprintf(hour_min, <span class="stringliteral">&quot;%02i:%02i&quot;</span>, actual_time.hour%MAX_HOUR, actual_time.min%MAX_MIN);</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>                ILI9341DrawString(20, 60, freq, &amp;font_89, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>, ILI9341_WHITE);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                ILI9341DrawString(10, 8, hour_min, &amp;font_30, ILI9341_WHITE, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>                <span class="keywordflow">if</span>(beat){</div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                    ILI9341DrawPicture(170, 65, <a class="code hl_define" href="heart__pic_8h.html#a05a84a691309667d7f2b1d93b3641c81">HEART_WIDTH</a>, <a class="code hl_define" href="heart__pic_8h.html#ab147acad2c7e8c688b76f23bbe422f10">HEART_HEIGHT</a>, <a class="code hl_variable" href="heart__pic_8h.html#a4c01abcd0c50cc006c88600f58df952d">heart</a>);</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                    ILI9341DrawFilledRectangle(170, 65, 170+<a class="code hl_define" href="heart__pic_8h.html#a05a84a691309667d7f2b1d93b3641c81">HEART_WIDTH</a>, 65+<a class="code hl_define" href="heart__pic_8h.html#ab147acad2c7e8c688b76f23bbe422f10">HEART_HEIGHT</a>, ILI9341_WHITE);</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>                }</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                beat = !beat;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>            }</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        }</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>}</div>
+</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span><span class="comment">/*==================[external functions definition]==========================*/</span></div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
+<div class="foldopen" id="foldopen00409" data-start="{" data-end="}">
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno"><a class="line" href="_proyecto_final_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">  409</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="_proyecto_final_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a>(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    timer_config_t timer_A = {</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        .timer = TIMER_A,</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        .period = <a class="code hl_define" href="_proyecto_final_8c.html#a566852534dddb456424b8f5f661c8913">CONFIG_TIMER_A</a>,</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        .func_p = <a class="code hl_function" href="_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1">FuncTimerA</a>,</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        .param_p = NULL</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>    };</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    timer_config_t timer_senial = {</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        .timer = TIMER_B,</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>        .period = (1000*64),</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        .func_p = <a class="code hl_function" href="_proyecto_final_8c.html#a7abd1c0b0bdd5a062b3a36bf63dd2e9b">FuncTimerSenial</a>,</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>        .param_p = NULL</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>    };</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span> </div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>    analog_input_config_t config_ADC = {</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    .input = CH1,</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    .mode = ADC_SINGLE,</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    .func_p = NULL,</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    .param_p = NULL,</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    .sample_frec = 0</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>    };</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span> </div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>    serial_config_t serial_port = {</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        .port = UART_PC,</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>        .baud_rate = 115200,</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>        .func_p = &amp;<a class="code hl_function" href="_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a">serial_interrupt</a>,</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>        .param_p = NULL</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    };</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span> </div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>    UartInit(&amp;serial_port);</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>    initPulseSensor(&amp;<a class="code hl_struct" href="structhr__monitor.html">hr_monitor</a>);</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>    AnalogInputInit(&amp;config_ADC);</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>    BuzzerInit(<a class="code hl_define" href="_proyecto_final_8c.html#a210847fd5dceb7a0cf6e00051bf78df6">GPIOBUZZ</a>);</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>    SwitchesInit();</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    LedsInit();</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span> </div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>    SwitchActivInt(SWITCH_1, &amp;<a class="code hl_function" href="_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c">LecturaSwitch1</a>, NULL);</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>    SwitchActivInt(SWITCH_2, &amp;<a class="code hl_function" href="_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf">LecturaSwitch2</a>, NULL);</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span> </div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>    <span class="comment">/* Configuración de display */</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>    ILI9341Init(SPI_1, GPIO_9, GPIO_18);</div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>    ILI9341Rotate(ILI9341_Portrait_2);</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span>    ILI9341Fill(ILI9341_WHITE);</div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    ILI9341DrawFilledRectangle(0, 0, 240, 40, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>    ILI9341DrawFilledRectangle(0, 280, 240, 320, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span>    ILI9341DrawString(10, 290, <span class="stringliteral">&quot;TIME10S&quot;</span>, &amp;font_22, ILI9341_WHITE, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span>    ILI9341DrawString(178, 290, <span class="stringliteral">&quot;00:04&quot;</span>, &amp;font_22, ILI9341_WHITE, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>    ILI9341DrawString(178, 120, <span class="stringliteral">&quot;bpm&quot;</span>, &amp;font_22, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>, ILI9341_WHITE);</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    ILI9341DrawString(20, 60, <span class="stringliteral">&quot;000&quot;</span>, &amp;font_89, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>, ILI9341_WHITE);</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    ILI9341DrawIcon(170, 8, ICON_BLUETOOTH, &amp;icon_30, ILI9341_WHITE, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>    ILI9341DrawIcon(200, 8, ICON_BAT_3, &amp;icon_30, ILI9341_WHITE, <a class="code hl_define" href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a>);</div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span> </div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>    printf(<span class="stringliteral">&quot;Iniciando sensor...\r\n&quot;</span>);</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>    </div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>    xTaskCreate(&amp;<a class="code hl_function" href="_proyecto_final_8c.html#a950cf4816415071964e0781d551bc637">PlotTask</a>, <span class="stringliteral">&quot;Plot&quot;</span>, 4096, NULL, 3, &amp;<a class="code hl_variable" href="_proyecto_final_8c.html#a4cf18bfef9938a35c2b2b0378bdaab86">plot_task_handle</a>);</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>    xTaskCreate(&amp;<a class="code hl_function" href="_proyecto_final_8c.html#a6fd3b97f4d86857bbc868cfe81ee1759">ProcessSignal</a>, <span class="stringliteral">&quot;Process Signal&quot;</span>, 4096, NULL, 4, &amp;<a class="code hl_variable" href="_proyecto_final_8c.html#a50093816f38c0e11ef2cc3c641b14ebd">process_signal_task_handle</a>);</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>    xTaskCreate(&amp;<a class="code hl_function" href="_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd">AlarmManage</a>, <span class="stringliteral">&quot;Alarm Manage&quot;</span>, 2048, NULL, 4, &amp;<a class="code hl_variable" href="_proyecto_final_8c.html#a7007d4e79a6aeff9695c57a36b93914b">alarm_manage_task_handle</a>);</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    </div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>    TimerInit(&amp;timer_A);</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>    TimerInit(&amp;timer_senial);</div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span> </div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>    TimerStart(timer_senial.timer);</div>
+<div class="line"><a id="l00472" name="l00472"></a><span class="lineno">  472</span>    TimerStart(timer_A.timer);</div>
+<div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span> </div>
+<div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);</div>
+<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>}</div>
+</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span><span class="comment">/*==================[end of file]============================================*/</span></div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span> </div>
+<div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span> </div>
+<div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span> </div>
+<div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
+<div class="line"><a id="l00481" name="l00481"></a><span class="lineno">  481</span> </div>
+<div class="line"><a id="l00482" name="l00482"></a><span class="lineno">  482</span> </div>
+<div class="ttc" id="a_proyecto_final_8c_html_a210847fd5dceb7a0cf6e00051bf78df6"><div class="ttname"><a href="_proyecto_final_8c.html#a210847fd5dceb7a0cf6e00051bf78df6">GPIOBUZZ</a></div><div class="ttdeci">#define GPIOBUZZ</div><div class="ttdoc">GPIO del buzzer.</div><div class="ttdef"><b>Definition</b> <a href="#l00118">ProyectoFinal.c:118</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a25022864dfc8ec428e7128282e57b136"><div class="ttname"><a href="_proyecto_final_8c.html#a25022864dfc8ec428e7128282e57b136">CHUNK</a></div><div class="ttdeci">#define CHUNK</div><div class="ttdef"><b>Definition</b> <a href="#l00086">ProyectoFinal.c:86</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a2afac59ff5745529b53b8f71a26333b5"><div class="ttname"><a href="_proyecto_final_8c.html#a2afac59ff5745529b53b8f71a26333b5">on</a></div><div class="ttdeci">bool on</div><div class="ttdoc">determina si la aplicación se encuentra en funcionamiento</div><div class="ttdef"><b>Definition</b> <a href="#l00153">ProyectoFinal.c:153</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a2dff7859fc002188beba77f774c97f5a"><div class="ttname"><a href="_proyecto_final_8c.html#a2dff7859fc002188beba77f774c97f5a">serial_interrupt</a></div><div class="ttdeci">void serial_interrupt(void *param)</div><div class="ttdef"><b>Definition</b> <a href="#l00239">ProyectoFinal.c:239</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a30588c5eca7c9cb6ebba02a0236f0119"><div class="ttname"><a href="_proyecto_final_8c.html#a30588c5eca7c9cb6ebba02a0236f0119">FS</a></div><div class="ttdeci">#define FS</div><div class="ttdoc">Frecuencia en Hz a la que se muestrea la sañal analógica.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">ProyectoFinal.c:93</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a4cf18bfef9938a35c2b2b0378bdaab86"><div class="ttname"><a href="_proyecto_final_8c.html#a4cf18bfef9938a35c2b2b0378bdaab86">plot_task_handle</a></div><div class="ttdeci">TaskHandle_t plot_task_handle</div><div class="ttdef"><b>Definition</b> <a href="#l00126">ProyectoFinal.c:126</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a50093816f38c0e11ef2cc3c641b14ebd"><div class="ttname"><a href="_proyecto_final_8c.html#a50093816f38c0e11ef2cc3c641b14ebd">process_signal_task_handle</a></div><div class="ttdeci">TaskHandle_t process_signal_task_handle</div><div class="ttdef"><b>Definition</b> <a href="#l00127">ProyectoFinal.c:127</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a5088c3325764095ca222dc78c328f466"><div class="ttname"><a href="_proyecto_final_8c.html#a5088c3325764095ca222dc78c328f466">FuncTimerB</a></div><div class="ttdeci">void FuncTimerB(void *param)</div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a53ae6b067d36f0e329a9064eff9faa8e"><div class="ttname"><a href="_proyecto_final_8c.html#a53ae6b067d36f0e329a9064eff9faa8e">PERIODO_REF</a></div><div class="ttdeci">#define PERIODO_REF</div><div class="ttdoc">periodo refractario para evitar detecciones incorrectas</div><div class="ttdef"><b>Definition</b> <a href="#l00113">ProyectoFinal.c:113</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a566852534dddb456424b8f5f661c8913"><div class="ttname"><a href="_proyecto_final_8c.html#a566852534dddb456424b8f5f661c8913">CONFIG_TIMER_A</a></div><div class="ttdeci">#define CONFIG_TIMER_A</div><div class="ttdoc">tiempo en micro segundos del timer_A</div><div class="ttdef"><b>Definition</b> <a href="#l00098">ProyectoFinal.c:98</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a630544a7f0a2cc40d8a7fefab7e2fe70"><div class="ttname"><a href="_proyecto_final_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a></div><div class="ttdeci">void app_main(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00409">ProyectoFinal.c:409</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a6fd3b97f4d86857bbc868cfe81ee1759"><div class="ttname"><a href="_proyecto_final_8c.html#a6fd3b97f4d86857bbc868cfe81ee1759">ProcessSignal</a></div><div class="ttdeci">static void ProcessSignal(void *pvParameters)</div><div class="ttdoc">realiza el procesamiento de la nueva muestra (frecuencia cardiaca, intervalo rr, etc).</div><div class="ttdef"><b>Definition</b> <a href="#l00256">ProyectoFinal.c:256</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a7007d4e79a6aeff9695c57a36b93914b"><div class="ttname"><a href="_proyecto_final_8c.html#a7007d4e79a6aeff9695c57a36b93914b">alarm_manage_task_handle</a></div><div class="ttdeci">TaskHandle_t alarm_manage_task_handle</div><div class="ttdef"><b>Definition</b> <a href="#l00128">ProyectoFinal.c:128</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a7abd1c0b0bdd5a062b3a36bf63dd2e9b"><div class="ttname"><a href="_proyecto_final_8c.html#a7abd1c0b0bdd5a062b3a36bf63dd2e9b">FuncTimerSenial</a></div><div class="ttdeci">void FuncTimerSenial(void *param)</div><div class="ttdoc">Función ejecutada en la interrupción del Timer.</div><div class="ttdef"><b>Definition</b> <a href="#l00337">ProyectoFinal.c:337</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a7e124659da23e4ab85c1ca62adea5fdd"><div class="ttname"><a href="_proyecto_final_8c.html#a7e124659da23e4ab85c1ca62adea5fdd">AlarmManage</a></div><div class="ttdeci">static void AlarmManage(void *pvParameters)</div><div class="ttdoc">realiza el control de la alarma (buzzer)</div><div class="ttdef"><b>Definition</b> <a href="#l00293">ProyectoFinal.c:293</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a812e2515dcffb143a1935e14ed235671"><div class="ttname"><a href="_proyecto_final_8c.html#a812e2515dcffb143a1935e14ed235671">ppg</a></div><div class="ttdeci">uint16_t ppg</div><div class="ttdoc">variable en la que se almacena el valor actual de la señal</div><div class="ttdef"><b>Definition</b> <a href="#l00143">ProyectoFinal.c:143</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_a950cf4816415071964e0781d551bc637"><div class="ttname"><a href="_proyecto_final_8c.html#a950cf4816415071964e0781d551bc637">PlotTask</a></div><div class="ttdeci">static void PlotTask(void *pvParameters)</div><div class="ttdoc">se encarga de mostrar datos en el display</div><div class="ttdef"><b>Definition</b> <a href="#l00346">ProyectoFinal.c:346</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_aacf7230ae21d96c3d855e7f2571d34ba"><div class="ttname"><a href="_proyecto_final_8c.html#aacf7230ae21d96c3d855e7f2571d34ba">LIGHT_BLUE_COLOR</a></div><div class="ttdeci">#define LIGHT_BLUE_COLOR</div><div class="ttdef"><b>Definition</b> <a href="#l00087">ProyectoFinal.c:87</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ab320100bdc9fa7e2092ee1cbd41cf2a8"><div class="ttname"><a href="_proyecto_final_8c.html#ab320100bdc9fa7e2092ee1cbd41cf2a8">TRESHOLD</a></div><div class="ttdeci">#define TRESHOLD</div><div class="ttdoc">umbral para la deteccion de latidos (Vcc/2)</div><div class="ttdef"><b>Definition</b> <a href="#l00103">ProyectoFinal.c:103</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ab9facf3606d3279abef90ecc5bd88dcf"><div class="ttname"><a href="_proyecto_final_8c.html#ab9facf3606d3279abef90ecc5bd88dcf">LecturaSwitch2</a></div><div class="ttdeci">static void LecturaSwitch2()</div><div class="ttdoc">Se ejecuta al presionarse la tecla 2, pone on en bajo y enfia una F por la UART para señalizar fin de...</div><div class="ttdef"><b>Definition</b> <a href="#l00324">ProyectoFinal.c:324</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ac60375b9a2c4dd654c5c8d664b8f1cf9"><div class="ttname"><a href="_proyecto_final_8c.html#ac60375b9a2c4dd654c5c8d664b8f1cf9">somn</a></div><div class="ttdeci">uint8_t somn</div><div class="ttdoc">caracter recibido por la UART que informa sobre el estado del sujeto (&quot;0&quot; = despierto,...</div><div class="ttdef"><b>Definition</b> <a href="#l00168">ProyectoFinal.c:168</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_acbda8f7609867e51e05aec7056d4eb9a"><div class="ttname"><a href="_proyecto_final_8c.html#acbda8f7609867e51e05aec7056d4eb9a">buzz</a></div><div class="ttdeci">bool buzz</div><div class="ttdoc">guarda informacion sobre si el buzzer se encuentra encendido</div><div class="ttdef"><b>Definition</b> <a href="#l00158">ProyectoFinal.c:158</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ad698948e2b19090452b7a78231997b9a"><div class="ttname"><a href="_proyecto_final_8c.html#ad698948e2b19090452b7a78231997b9a">frecuencia_cardiaca</a></div><div class="ttdeci">uint8_t frecuencia_cardiaca</div><div class="ttdoc">variable que almacena la frecuencia cardiaca actual</div><div class="ttdef"><b>Definition</b> <a href="#l00148">ProyectoFinal.c:148</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ad8f7ff650c29a4ee37aa6ffa07c6356d"><div class="ttname"><a href="_proyecto_final_8c.html#ad8f7ff650c29a4ee37aa6ffa07c6356d">periodo_refractario</a></div><div class="ttdeci">int16_t periodo_refractario</div><div class="ttdoc">variable que guarda el valor del periodo refractario, si es igual o menor a 0 quiere decir que se enc...</div><div class="ttdef"><b>Definition</b> <a href="#l00178">ProyectoFinal.c:178</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ae11b3deb3de3df7dc48e439074023e35"><div class="ttname"><a href="_proyecto_final_8c.html#ae11b3deb3de3df7dc48e439074023e35">count</a></div><div class="ttdeci">uint32_t count</div><div class="ttdoc">contador de la cantidad de muestras tomadas(se reinicia cada 1 minuto)</div><div class="ttdef"><b>Definition</b> <a href="#l00173">ProyectoFinal.c:173</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_ae3c3d54069428d479f0d1a93da713a6c"><div class="ttname"><a href="_proyecto_final_8c.html#ae3c3d54069428d479f0d1a93da713a6c">LecturaSwitch1</a></div><div class="ttdeci">static void LecturaSwitch1()</div><div class="ttdoc">Se ejecuta al presionarse la tecla 1, pone on en alto y envia una S por la UART para señalizar inicio...</div><div class="ttdef"><b>Definition</b> <a href="#l00309">ProyectoFinal.c:309</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_aeb82d4e5d85a51ef2e4635bcb98307f4"><div class="ttname"><a href="_proyecto_final_8c.html#aeb82d4e5d85a51ef2e4635bcb98307f4">somnolencia</a></div><div class="ttdeci">bool somnolencia</div><div class="ttdoc">determina la presencia o no de somnolencia</div><div class="ttdef"><b>Definition</b> <a href="#l00163">ProyectoFinal.c:163</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_af9ca08a569011cdad147d233689bf1d9"><div class="ttname"><a href="_proyecto_final_8c.html#af9ca08a569011cdad147d233689bf1d9">MUESTRAS_1_MIN</a></div><div class="ttdeci">#define MUESTRAS_1_MIN</div><div class="ttdoc">cantidad de muestras que se toman en 1 minuto de la señal analógica</div><div class="ttdef"><b>Definition</b> <a href="#l00108">ProyectoFinal.c:108</a></div></div>
+<div class="ttc" id="a_proyecto_final_8c_html_afaccfed84cd1498a05ea04a65f1209b1"><div class="ttname"><a href="_proyecto_final_8c.html#afaccfed84cd1498a05ea04a65f1209b1">FuncTimerA</a></div><div class="ttdeci">void FuncTimerA(void *param)</div><div class="ttdoc">Notifica a la tarea de processSignal.</div><div class="ttdef"><b>Definition</b> <a href="#l00234">ProyectoFinal.c:234</a></div></div>
+<div class="ttc" id="agroup___rollplot_html_ga0847f6ddf1428e34cd8606782d523fd6"><div class="ttname"><a href="group___rollplot.html#ga0847f6ddf1428e34cd8606782d523fd6">signal_t::y_scale</a></div><div class="ttdeci">uint16_t y_scale</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8h_source.html#l00047">roll_plot.h:47</a></div></div>
+<div class="ttc" id="agroup___rollplot_html_ga1ce2cc6a579e86780693670650003ef0"><div class="ttname"><a href="group___rollplot.html#ga1ce2cc6a579e86780693670650003ef0">RTSignalInit</a></div><div class="ttdeci">void RTSignalInit(plot_t *plot, signal_t *signal)</div><div class="ttdoc">Initializes parameters of a signal for a specific plot.</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8c_source.html#l00035">roll_plot.c:35</a></div></div>
+<div class="ttc" id="agroup___rollplot_html_gac71bd9deb3801b55b5033e025d1f48f0"><div class="ttname"><a href="group___rollplot.html#gac71bd9deb3801b55b5033e025d1f48f0">plot_t::x_pos</a></div><div class="ttdeci">uint16_t x_pos</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8h_source.html#l00034">roll_plot.h:34</a></div></div>
+<div class="ttc" id="agroup___rollplot_html_gad1074bc2dfd75e8e57070563d3bb64d2"><div class="ttname"><a href="group___rollplot.html#gad1074bc2dfd75e8e57070563d3bb64d2">RTPlotDraw</a></div><div class="ttdeci">void RTPlotDraw(signal_t *signal, int16_t data)</div><div class="ttdoc">Write data to SPI port.</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8c_source.html#l00041">roll_plot.c:41</a></div></div>
+<div class="ttc" id="agroup___rollplot_html_gaf7abadd5aac29e85950c6621636806d6"><div class="ttname"><a href="group___rollplot.html#gaf7abadd5aac29e85950c6621636806d6">RTPlotInit</a></div><div class="ttdeci">void RTPlotInit(plot_t *plot)</div><div class="ttdoc">Initializes a plot.</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8c_source.html#l00028">roll_plot.c:28</a></div></div>
+<div class="ttc" id="aheart__pic_8h_html"><div class="ttname"><a href="heart__pic_8h.html">heart_pic.h</a></div><div class="ttdoc">Picture of a heart.</div></div>
+<div class="ttc" id="aheart__pic_8h_html_a05a84a691309667d7f2b1d93b3641c81"><div class="ttname"><a href="heart__pic_8h.html#a05a84a691309667d7f2b1d93b3641c81">HEART_WIDTH</a></div><div class="ttdeci">#define HEART_WIDTH</div><div class="ttdef"><b>Definition</b> <a href="heart__pic_8h_source.html#l00014">heart_pic.h:14</a></div></div>
+<div class="ttc" id="aheart__pic_8h_html_a4c01abcd0c50cc006c88600f58df952d"><div class="ttname"><a href="heart__pic_8h.html#a4c01abcd0c50cc006c88600f58df952d">heart</a></div><div class="ttdeci">const uint8_t heart[]</div><div class="ttdef"><b>Definition</b> <a href="heart__pic_8h_source.html#l00017">heart_pic.h:17</a></div></div>
+<div class="ttc" id="aheart__pic_8h_html_ab147acad2c7e8c688b76f23bbe422f10"><div class="ttname"><a href="heart__pic_8h.html#ab147acad2c7e8c688b76f23bbe422f10">HEART_HEIGHT</a></div><div class="ttdeci">#define HEART_HEIGHT</div><div class="ttdef"><b>Definition</b> <a href="heart__pic_8h_source.html#l00015">heart_pic.h:15</a></div></div>
+<div class="ttc" id="aroll__plot_8h_html"><div class="ttname"><a href="roll__plot_8h.html">roll_plot.h</a></div></div>
+<div class="ttc" id="astructhr__monitor_html"><div class="ttname"><a href="structhr__monitor.html">hr_monitor</a></div><div class="ttdoc">monitor de frecuencia cardíaca</div></div>
+<div class="ttc" id="astructplot__t_html"><div class="ttname"><a href="structplot__t.html">plot_t</a></div><div class="ttdoc">Contains functions to create plots in a color LCD display.</div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8h_source.html#l00033">roll_plot.h:33</a></div></div>
+<div class="ttc" id="astructsignal__t_html"><div class="ttname"><a href="structsignal__t.html">signal_t</a></div><div class="ttdef"><b>Definition</b> <a href="roll__plot_8h_source.html#l00046">roll_plot.h:46</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_429d80758da54da73083af4edd40d0b3.html">projects</a></li><li class="navelem"><a class="el" href="dir_49cab978dd6222f95fec48dd18bcb29c.html">ProyectoFinal</a></li><li class="navelem"><a class="el" href="dir_0cd45db885baac9c0efb66acd875c4ba.html">main</a></li><li class="navelem"><a class="el" href="_proyecto_final_8c.html">ProyectoFinal.c</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

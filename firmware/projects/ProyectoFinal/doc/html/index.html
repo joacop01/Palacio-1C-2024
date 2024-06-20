@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Proyecto Final: ProyectoFinal</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Proyecto Final<span id="projectnumber">&#160;1.0</span>
+   </div>
+   <div id="projectbrief">Proyecto final de electronica programable 1C 2024</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">ProyectoFinal </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="genDesc"></a>
+General Description:</h1>
+<p>La aplicacion consiste en la lectura de la señal de pulso por PPG, su conversion ADC y su posterior procesamiento en el que se calcula la frecuencia cardíaca actual BPM(Beats per minute) y el tiempo entre latidos IBI(Inter-Beats-Interval) cada vez que se detecta un latido se envia por la UART el dato acerca del intervalo entre latidos, el cual es recibido por MATLAB, donde se almacenan estos datos en un vector hasta que se reciba un dato de fin de recoleccion. En este momento se procesan los datos en MATLAB, se obtiene el tacograma, y se analizan las bandas de bajas y altas frecuencias (LF y HF, respectivamente) y se realiza la division de LF/HF, el cual, si se encuentra debajo de un umbral preestablecido MATLAB consdiera como somnolencia y envía por la UART un 1 o un 0 si el valor es mayor al umbral. Ante esta interrupcion, si el dato recibido es un "1" se activa el buzzer, el cual solo se apaga una vez se presiona la tecla 1. Al mismo tiempo, se muestra en el display información sobre la frecuencia cardíaca actual y la señal. Con la tecla 1 se inicializa el sistema y se envia por la UART una "S", la cual le indica a MATLAB que inicie la recoleccion de datos. 1 munuto despues de que se envío la "S", se envia por la UART una "E" que señaliza fin de recoleccion de datos y da inicio al procesamiento de los datos recolectados para determinar la presencia o no de somnolencia. Luego de que se envía la "E" se envía una "S" nuevamente para continuar con la recolección de datos. Este proceso se repite cada 1 minuto. Tambien con la tecla 1, si el buzzer se encuentra encendido, lo apaga. Por otra parte, la tecla 2 se utiliza para apagar el sistema, y se envia tamben por la UART una "F" la cual señaliza fin del programa.</p>
+<h1><a class="anchor" id="hardConn"></a>
+Hardware Connection</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Pulse_Sensor   </th><th class="markdownTableHeadLeft">ESP-EDU    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">Signal   </td><td class="markdownTableBodyLeft">CH1    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">VCC   </td><td class="markdownTableBodyLeft">3V3    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">GND   </td><td class="markdownTableBodyLeft">GND    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">:-----------&mdash;:   </td><td class="markdownTableBodyLeft">:-----------&mdash;    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">Display   </td><td class="markdownTableBodyLeft">ESP-EDU    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">:-----------&mdash;:   </td><td class="markdownTableBodyLeft">:-----------&mdash;    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">SDO/MISO   </td><td class="markdownTableBodyLeft">GPIO_22    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">LED   </td><td class="markdownTableBodyLeft">3V3    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">SCK   </td><td class="markdownTableBodyLeft">GPIO_20    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">SDI/MOSI   </td><td class="markdownTableBodyLeft">GPIO_21    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">DC/RS   </td><td class="markdownTableBodyLeft">GPIO_9    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">RESET   </td><td class="markdownTableBodyLeft">GPIO_18    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">CS   </td><td class="markdownTableBodyLeft">GPIO_19    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">GND   </td><td class="markdownTableBodyLeft">GND    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">VCC   </td><td class="markdownTableBodyLeft">3V3    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">:-----------&mdash;:   </td><td class="markdownTableBodyLeft">:-----------&mdash;    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">Buzzer   </td><td class="markdownTableBodyLeft">ESP-EDU    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">:-----------&mdash;:   </td><td class="markdownTableBodyLeft">:-----------&mdash;    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">VCC   </td><td class="markdownTableBodyLeft">GPIO_3    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter">GND   </td><td class="markdownTableBodyLeft">GND   </td></tr>
+</table>
+<h1><a class="anchor" id="changelog"></a>
+Changelog</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Date   </th><th class="markdownTableHeadLeft">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter">30/04/2024   </td><td class="markdownTableBodyLeft">Document creation   </td></tr>
+</table>
+<dl class="section author"><dt>Autor</dt><dd>Joaquin Palacio </dd></dl>
+</div></div><!-- PageDoc -->
+<a href="doxygen_crawl.html"/>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>
